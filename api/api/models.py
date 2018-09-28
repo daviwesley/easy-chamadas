@@ -13,6 +13,7 @@ class Subject(models.Model):
     name = models.CharField(max_length=40, verbose_name='nome')
     hours = models.IntegerField(verbose_name='horas')
     credit = models.IntegerField(verbose_name='creditos')
+    teacher = models.ManyToManyField('Teacher')
 
     class Meta:
         verbose_name = 'Disciplina'
