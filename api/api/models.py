@@ -3,16 +3,17 @@ from django.db import models
 # Create your models here.
 
 class Teacher(models.Model):
-    name = models.CharField(verbose_name='nome')
+    name = models.CharField(verbose_name='nome', max_length=55)
 
     class Meta:
         verbose_name = 'Professor'
+        verbose_name_plural = 'Professores'
 
 
 class Subject(models.Model):
     name = models.CharField(max_length=40, verbose_name='nome')
     hours = models.IntegerField(verbose_name='horas')
-    credit = models.IntegerField(verbose_name='creditos')
+    credit = models.IntegerField(verbose_name='creditos', default=4)
     teacher = models.ManyToManyField('Teacher')
 
     class Meta:
