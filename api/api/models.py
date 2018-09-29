@@ -7,7 +7,7 @@ class Teacher(models.Model):
 
     def __str__(self):
         return self.name
-        
+
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
@@ -47,7 +47,10 @@ class Situation(models.Model):
     class Meta:
         verbose_name = 'Situação'
 
-class Faul(models.Model):
-    fauts = models.IntegerField()
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+class Fault(models.Model):
+    faults = models.IntegerField(verbose_name='faltas')
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='Aluno')
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='Disciplina')
+
+    class Meta:
+        verbose_name = 'Falta'
