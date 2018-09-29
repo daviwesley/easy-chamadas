@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
 from .serializers import StudentSerializer, FaultSerializer
 from .models import Student, Fault
 
@@ -10,5 +12,7 @@ class StudentViewAPI(generics.ListCreateAPIView):
     serializer_class = StudentSerializer
 
 class FaultViewAPI(generics.ListCreateAPIView):
+    authentication_classes = (SessionAuthentication, BasicAuthentication)
+    permission_classes = (IsAuthenticated,)
     queryset = Fault.objects.all()
     serializer_class = FaultSerializer
