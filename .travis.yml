@@ -8,5 +8,5 @@ python:
 install:
   - pip install -r api/requirements.txt
 
-after_success:
-  - python /api/manage.py test 
+script:
+  - python /api/manage.py test
