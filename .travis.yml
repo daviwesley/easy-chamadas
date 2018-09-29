@@ -9,4 +9,5 @@ install:
   - pip install -r api/requirements.txt
 
 script:
-  - python api/manage.py test
+  - cd api
+  - python manage.py test
