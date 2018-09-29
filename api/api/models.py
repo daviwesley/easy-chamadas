@@ -30,10 +30,30 @@ class Subject(models.Model):
         return self.name
 
 
+class Course(models.Model):
+    COURSES = (
+    ('ES', 'Engenharia de Software'),
+    ('CC', 'Ciências da Computação'),
+    ('EP', 'Engenharia da Produção'),
+    ('EC', 'Engenharia Civil'),
+    ('EM', 'Engenharia Mecânica'),
+    )
+    name = models.CharField(max_length=30, choices=COURSES)
+
+
 class Student(models.Model):
+    COURSES = (
+    ('ES', 'Engenharia de Software'),
+    ('CC', 'Ciências da Computação'),
+    ('EP', 'Engenharia da Produção'),
+    ('EC', 'Engenharia Civil'),
+    ('EM', 'Engenharia Mecânica'),
+    )
+
     name = models.CharField(max_length=55, verbose_name='nome')
     id_subscription = models.IntegerField(primary_key=True, verbose_name='matricula')
     subject = models.ManyToManyField(Subject, related_name='rel_student')
+    course = models.CharField(max_length=30, choices=COURSES)
 
     class Meta:
         verbose_name = 'Aluno'
@@ -59,7 +79,7 @@ class Fault(models.Model):
     class Meta:
         verbose_name = 'Falta'
 
-
+# cria um token quando um usuário é criado
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:

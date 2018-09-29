@@ -17,3 +17,10 @@ class FaultViewAPI(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = Fault.objects.all()
     serializer_class = FaultSerializer
+
+class StudentSearchViewAPI(generics.ListAPIView):
+    serializer_class = StudentSerializer
+
+    def get_queryset(self):
+        id = self.kwargs['id']
+        return Student.objects.filter(id_subscription=id)
