@@ -1,0 +1,122 @@
+[
+{
+    "model": "api.teacher",
+    "pk": 1,
+    "fields": {
+        "name": "Tatiane Fernandes"
+    }
+},
+{
+    "model": "api.teacher",
+    "pk": 2,
+    "fields": {
+        "name": "Tatiane Fernandes"
+    }
+},
+{
+    "model": "api.teacher",
+    "pk": 3,
+    "fields": {
+        "name": "Tatiane Fernandes"
+    }
+},
+{
+    "model": "api.teacher",
+    "pk": 4,
+    "fields": {
+        "name": "Tatiane Fernandes"
+    }
+},
+{
+    "model": "api.teacher",
+    "pk": 5,
+    "fields": {
+        "name": "Tatiane"
+    }
+},
+{
+    "model": "api.teacher",
+    "pk": 6,
+    "fields": {
+        "name": "Nauber Goes"
+    }
+},
+{
+    "model": "api.subject",
+    "pk": 1,
+    "fields": {
+        "name": "Estrutura de Dados",
+        "hours": 64,
+        "credit": 4,
+        "teacher": [
+            1
+        ]
+    }
+},
+{
+    "model": "api.subject",
+    "pk": 6,
+    "fields": {
+        "name": "Qualidade De Software",
+        "hours": 64,
+        "credit": 4,
+        "teacher": [
+            6
+        ]
+    }
+},
+{
+    "model": "api.course",
+    "pk": 1,
+    "fields": {
+        "name": "ES"
+    }
+},
+{
+    "model": "api.course",
+    "pk": 2,
+    "fields": {
+        "name": "CC"
+    }
+},
+{
+    "model": "api.student",
+    "pk": 379071,
+    "fields": {
+        "name": "Reubber De Sousa",
+        "course": "0",
+        "subject": [
+            1
+        ]
+    }
+},
+{
+    "model": "api.student",
+    "pk": 381097,
+    "fields": {
+        "name": "Davi Wesley",
+        "course": "ES",
+        "subject": [
+            6
+        ]
+    }
+},
+{
+    "model": "api.fault",
+    "pk": 2,
+    "fields": {
+        "faults": 2,
+        "student": 379071,
+        "subject": 1
+    }
+},
+{
+    "model": "api.fault",
+    "pk": 3,
+    "fields": {
+        "faults": 1,
+        "student": 379071,
+        "subject": 1
+    }
+}
+]

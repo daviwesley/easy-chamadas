@@ -13,10 +13,14 @@ class TestAluno(TestCase):
         self.assertEquals(self.student.__str__(), self.student.name)
 
 class TestURLS(TestCase):
-    fixtures = ['bd_data']
+    fixtures = ['dados_api']
 
     def setUP(self):
         self.client = Client()
+
+    def test_url_api_faults(self):
+        response = self.client.get('/api/faltas')
+        self.assertEquals(response.status_code, 200)
 
     def test_url_api_students(self):
         response = self.client.get('/api/alunos')
@@ -26,6 +30,4 @@ class TestURLS(TestCase):
         response = self.client.get('/api/alunos/381097')
         self.assertEquals(response.status_code, 200)
     
-    def test_url_api_faults(self):
-        response = self.client.get('/api/faltas')
-        self.assertEquals(response.status_code, 200)
+    
