@@ -18,9 +18,10 @@ class TestURLS(TestCase):
     def setUP(self):
         self.client = Client()
 
-    def test_url_api_faults(self):
+    def test_url_api_faults_without_token(self):
+        # 403 Forbiden Error
         response = self.client.get('/api/faltas')
-        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 403)
 
     def test_url_api_students(self):
         response = self.client.get('/api/alunos')
