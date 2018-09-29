@@ -78,6 +78,7 @@ TEMPLATES = [
         'rest_framework.permissions.IsAuthenticated',
     )
 } """
+FIXTURE_DIRS = 'fixtures'
 
 WSGI_APPLICATION = 'easy_chamadas.wsgi.application'
 
