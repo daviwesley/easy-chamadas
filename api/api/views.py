@@ -12,6 +12,7 @@ class StudentViewAPI(generics.ListCreateAPIView):
     serializer_class = StudentSerializer
 
 class FaultViewAPI(generics.ListCreateAPIView):
+    #somente usuarios com o token podem acessar
     authentication_classes = (SessionAuthentication, BasicAuthentication)
     permission_classes = (IsAuthenticated,)
     queryset = Fault.objects.all()
