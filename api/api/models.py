@@ -5,6 +5,9 @@ from django.db import models
 class Teacher(models.Model):
     name = models.CharField(verbose_name='nome', max_length=55)
 
+    def __str__(self):
+        return self.name
+        
     class Meta:
         verbose_name = 'Professor'
         verbose_name_plural = 'Professores'
