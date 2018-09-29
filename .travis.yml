@@ -1,23 +1,12 @@
-language: python # => 1
+sudo: false
 
-    python: # => 2
+language: python
 
-      - "3.6"
+python:
+  - 3.6
+  
+install:
+  - pip install -r api/requirements.txt
 
-    services:
-
-      #decidir depois - mysql
-
-    env:
-
-      # config basica -DJANGO=1.8 DB=mysql
-    install:
-
-      - pip install -r requirements.txt
-
-    before_script:
-
-      #- mysql -e 'create database test;' -u root
-    script: # => 7
-
-      - python manage.py test
+after_success:
+  - python /api/manage.py test 
