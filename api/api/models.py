@@ -43,3 +43,8 @@ class Situation(models.Model):
 
     class Meta:
         verbose_name = 'Situação'
+
+class Faul(models.Model):
+    fauts = models.IntegerField()
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
