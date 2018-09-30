@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { Card, Icon } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
+import { Col, Row, Grid } from "react-native-easy-grid";
 
 class App extends React.Component {
   static navigationOptions = ({ navigation }) => {
@@ -13,24 +14,24 @@ class App extends React.Component {
 
 render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.containerOptions}>
-          <Card sytle={styles.cardStyle} title="Cadastrar Alunos">
-            <Icon
-              name='ios-clock'
-              type='ionicon'
-             // color='#517fa4'
-            />
+      <Grid>
+        <Col>
+          <Card title="Cadastrar Alunos">
+            <Icon name='group-add'/>
           </Card>
-          <Card sytle={styles.cardStyle} title="Realizar Chamadas">
-            <Icon
-              name='logo-twitter'
-              type='ionicon'
-             //color='#517fa4'
-            />
+          <Card title="Fazer chamadas">
+            <Icon name="add"/>
           </Card>
-        </View>
-      </View>
+        </Col>
+        <Col>
+          <Card title="Cadastrar Alunos">
+            <Icon name="account"/>
+          </Card>
+          <Card title="Cadastrar Alunos">
+            <Icon name="account"/>
+          </Card>
+        </Col>
+      </Grid>
     );
   }
 }
@@ -44,13 +45,14 @@ const navBar = createStackNavigator({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
   containerOptions: {
-    flexDirection: 'row',
-    alignItems: 'center', 
+    //flexDirection: 'row',
+    justifyContent:'center',
   },
   cardStyle: {
     alignItems: 'center',
