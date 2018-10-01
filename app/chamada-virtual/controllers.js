@@ -13,7 +13,7 @@ const methods = {
 
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = "https://localhost:8000" + endpoint;
+        let url = "http://169.254.235.9:8000/" + endpoint;
 
         const headers = {
             Accept: 'application/json',
@@ -58,6 +58,7 @@ const request = (method, endpoint, options) => {
     return result;
 };
 
-export const getAlunos = () => {  
-    return request(methods.GET, 'api/alunos');
+export const getAlunos = () => {
+
+    return request(methods.GET, 'api/alunos',{token: "b674b5924955293e780ef2ae1c3a05491c994a5e"});
   };

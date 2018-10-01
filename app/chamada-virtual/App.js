@@ -5,6 +5,7 @@ Picker,
 import { Card, Icon,} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
+import { getAlunos} from './controllers'
 
 //import { Cadastro } from './components/cadastro';
 
@@ -15,7 +16,7 @@ export class Cadastro extends React.Component {
         <KeyboardAvoidingView  behavior="padding" enabled>
           <Text style={styles.headerText}>Nome do aluno</Text>
           <TextInput placeholder="Digite o nome do aluno"
-                     style={styles.textInput}
+                     //style={styles.textInput}
                      autoCapitalize='words'
                      returnKeyType='next'
                      //onSubmitEditing={() => { this.secondTextInput.focus(); }}
@@ -23,11 +24,11 @@ export class Cadastro extends React.Component {
           />
           <Text style={styles.headerText}>Matricula do aluno</Text>
           <TextInput placeholder="Digite a matricula do aluno"
-                    style={styles.textInput}
+                   //style={styles.textInput}
                     keyboardType='numeric'
                     maxLength={6}
           />
-          <Button title="Cadastrar" onPress={() => null }/>
+          <Button title="Cadastrar" onPress={() => getAlunos() }/>
         </KeyboardAvoidingView>
       );
     }
