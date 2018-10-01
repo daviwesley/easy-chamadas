@@ -61,3 +61,14 @@ const request = (method, endpoint, options) => {
 export const getAlunos = () => {  
     return request(methods.GET, 'api/alunos');
   };
+//exemplo de 
+/*
+fetch('https://daviwesleyvk.pythonanywhere.com/api/alunos',{
+      method:'GET',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization':'Token c2040627fbbae52eff1a5f3568964621c9269295'
+      }
+    }*/
+    ).then(response => response.json()).then(response => console.log(response));
