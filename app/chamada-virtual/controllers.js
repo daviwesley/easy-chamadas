@@ -57,3 +57,7 @@ const request = (method, endpoint, options) => {
 
     return result;
 };
+
+export const getAlunos = () => {  
+    return request(methods.GET, 'api/alunos');
+  };

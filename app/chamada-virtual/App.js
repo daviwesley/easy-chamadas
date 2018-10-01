@@ -49,13 +49,13 @@ export class Cadastro extends React.Component {
           <Picker
             selectedValue={this.state.PickerValueHolder}
             onValueChange={(itemValue, itemIndex) => this.setState({PickerValueHolder: itemValue})} >
-            <Text>Escolha um aluno</Text>
             <Picker.Item label="React Native" value="React Native" />
             <Picker.Item label="Java" value="Java" />
             <Picker.Item label="Html" value="Html" />
             <Picker.Item label="Php" value="Php" />
             <Picker.Item label="C++" value="C++" />
             <Picker.Item label="JavaScript" value="JavaScript" />
+            <Text>Escolha um aluno</Text>
     
           </Picker>
           </KeyboardAvoidingView>
