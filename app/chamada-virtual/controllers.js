@@ -58,10 +58,13 @@ const request = (method, endpoint, options) => {
     return result;
 };
 
-export const getAlunos = () => {
-    const token = "a8e88182dc4096bac82ff98574b4435c4573c34e"
-    return request(methods.GET, 'api/alunos', { params: token } );
-};
+export const getAlunos = (token) => {
+    const params = {
+      pagination: true,
+    };
+  
+    return request(methods.GET, 'api/alunos', { token });
+  };
 
 export const getToken = (nome, senha) => {
     const data = {
