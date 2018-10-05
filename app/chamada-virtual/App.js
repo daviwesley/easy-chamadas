@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TextInput , Text, Button, KeyboardAvoidingView,
-Picker,
+Picker, Alert, Platform, StatusBar,
 } from 'react-native';
 import { Card, Icon,} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
@@ -11,24 +11,100 @@ import { getAlunos} from './controllers'
 
 // tela de cadastramento de aluno
 export class Cadastro extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      nomeAluno:" ",
+      matricula:" ",
+    }
+  }
   render() {
       return (
-        <KeyboardAvoidingView  behavior="padding" enabled>
+        <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        {/* <StatusBar backgroundColor='black'/> */}
+          <View style={{alignItems: 'center',}}>
           <Text style={styles.headerText}>Nome do aluno</Text>
           <TextInput placeholder="Digite o nome do aluno"
-                     //style={styles.textInput}
+                     style={styles.textInput}
                      autoCapitalize='words'
                      returnKeyType='next'
                      //onSubmitEditing={() => { this.secondTextInput.focus(); }}
                      blurOnSubmit={false}
+                     onChangeText={text => this.setState({nomeAluno:text})}
           />
+          </View>
+          <View style={{alignItems: 'center',}}>
           <Text style={styles.headerText}>Matricula do aluno</Text>
           <TextInput placeholder="Digite a matricula do aluno"
-                   //style={styles.textInput}
+                    style={styles.textInput}
                     keyboardType='numeric'
                     maxLength={6}
+                    onChangeText={text => this.setState({matricula:text})}
           />
-          <Button title="Cadastrar" onPress={() => getAlunos() }/>
+          </View>
+          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.nomeAluno, this.state.matricula) }
+           accessibilityLabel="Cadastrar alunos"/>
+           
+        </KeyboardAvoidingView>
+      );
+    }
+  }
+// tela de cadastro professor
+export class CadastroProfessor extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      nome:" ",
+    }
+  }
+  render() {
+      return (
+        <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        {/* <StatusBar backgroundColor='black'/> */}
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Nome do Professor</Text>
+          <TextInput placeholder="Digite o nome do aluno"
+                     style={styles.textInput}
+                     autoCapitalize='words'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({nome:text})}
+          />
+          </View>
+          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.nome) }
+           accessibilityLabel="Cadastrar alunos"/>
+           
+        </KeyboardAvoidingView>
+      );
+    }
+  }
+// tela de cadastro de Disciplina
+export class CadastroDisciplina extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      disciplina:" ",
+    }
+  }
+  render() {
+      return (
+        <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        {/* <StatusBar backgroundColor='black'/> */}
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Nome da disciplina</Text>
+          <TextInput placeholder="Digite o nome da disciplina"
+                     style={styles.textInput}
+                     autoCapitalize='words'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({disciplina:text})}
+          />
+          </View>
+          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.disciplina) }
+           accessibilityLabel="Cadastrar disciplina"/>
+           
         </KeyboardAvoidingView>
       );
     }
@@ -40,52 +116,92 @@ export class Cadastro extends React.Component {
     constructor(){
       super();
       this.state={
-        PickerValueHolder : ''
+        disciplina : '',
+        matricula: '',
+        aluno:'',
       }
     }
 
     render() {
         return (
-          <KeyboardAvoidingView  behavior="padding" enabled>
-          <Picker
-            selectedValue={this.state.PickerValueHolder}
-            onValueChange={(itemValue, itemIndex) => this.setState({PickerValueHolder: itemValue})} >
-            <Picker.Item label="React Native" value="React Native" />
-            <Picker.Item label="Java" value="Java" />
-            <Picker.Item label="Html" value="Html" />
-            <Picker.Item label="Php" value="Php" />
-            <Picker.Item label="C++" value="C++" />
-            <Picker.Item label="JavaScript" value="JavaScript" />
-            <Text>Escolha um aluno</Text>
-    
-          </Picker>
-          </KeyboardAvoidingView>
+          <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        {/* <StatusBar backgroundColor='black'/> */}
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Nome do aluno</Text>
+          <TextInput placeholder="Digite o nome do aluno"
+                     style={styles.textInput}
+                     autoCapitalize='words'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({aluno:text})}
+          />
+          </View>
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Matricula do aluno</Text>
+          <TextInput placeholder="Digite a matricula do aluno"
+                    style={styles.textInput}
+                    keyboardType='numeric'
+                    maxLength={6}
+                    onChangeText={text => this.setState({matricula:text})}
+          />
+          </View>
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Disciplina</Text>
+          <TextInput placeholder="Digite a disciplina"
+                    style={styles.textInput}
+                    onChangeText={text => this.setState({disciplina:text})}
+          />
+          </View>
+          <Button title="Cadastrar" onPress={() => null }
+           accessibilityLabel="Cadastrar alunos"/>
+           
+        </KeyboardAvoidingView>
         );
       }
     }
 
 class App extends React.Component {
-
+constructor(props){
+  super(props)
+  this.state = {
+    dados:''
+  }
+}
+makeAlert(){
+  alunos = getAlunos()
+  Alert.alert(alunos)
+}
+componentDidMount(){
+  alunos = getAlunos().then(data =>{
+    this.setState({
+      dados:data.nome
+    })
+  })
+}
 render() {
     return (
       <Grid>
         <Col>
           <Card title="Cadastrar Alunos">
-            <Icon size={35} name='group-add' 
+            <Icon size={70} name='group-add' 
             onPress={() => this.props.navigation.navigate('CadastroAluno')} />
           </Card>
-          <Card title="Fazer chamadas">
-            <Icon size={35} name="check-circle"
+          <Card title="Cadastrar Disciplina">
+            <Icon size={70} name="check-circle"
+            onPress={() => this.props.navigation.navigate("Disciplina")}
             />
           </Card>
         </Col>
         <Col>
           <Card title="Fazer Chamada">
-            <Icon size={35} name="check"
+            <Icon size={70} name="check"
             onPress={() => this.props.navigation.navigate('Chamada')}/>
           </Card>
-          <Card title="Sobre Nós" >
-            <Icon size={35} name="live-help"/>
+          <Card title={"Cadastrar Professor"} >
+            <Icon size={70} name="live-help"
+            // raised={true}
+            onPress={() => this.props.navigation.navigate("Professor")}/>
           </Card>
         </Col>
       </Grid>
@@ -109,7 +225,19 @@ const navBar = createStackNavigator({
   Chamada: {
     screen: ChamadaScreen,
     navigationOptions: {
-      title: 'Cadastrar Aluno'
+      title: 'Fazer chamada'
+    }
+  },
+  Disciplina: {
+    screen: CadastroDisciplina,
+    navigationOptions: {
+      title: 'Cadastrar disciplina'
+    }
+  },
+  Professor: {
+    screen: CadastroProfessor,
+    navigationOptions: {
+      title: 'Cadastrar professor'
     }
   },
 });
@@ -124,14 +252,15 @@ const styles = StyleSheet.create({
   textInput: {
     height: 40, 
     width: "95%", 
-    borderColor: 'gray', 
-    borderRadius: 2,
+    borderColor: 'black', 
+    borderRadius: 4,
     borderWidth: 1,  
-    marginBottom: 20
+    marginBottom: 20,
+    backgroundColor:'white',
   },
   headerText:{
     fontSize: 15,
-    fontWeight: 'bold',
+    paddingTop: 5,
   }
 });
 export default navBar
