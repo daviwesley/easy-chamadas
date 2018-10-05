@@ -79,6 +79,51 @@ export class CadastroProfessor extends React.Component {
       );
     }
   }
+// tela de login
+export class LoginScreen extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      usuario:"",
+      senha:""
+    }
+  }
+  componentWillMount(){
+    
+  }
+  render() {
+      return (
+        <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        {/* <StatusBar backgroundColor='black'/> */}
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Nome do usuário</Text>
+          <TextInput placeholder="Digite o nome da disciplina"
+                     style={styles.textInput}
+                     autoCapitalize='words'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({disciplina:text})}
+          />
+          <Text style={styles.headerText}>Senha</Text>
+          <TextInput placeholder="Digite a senha do usuário"
+                     style={styles.textInput}
+                     secureTextEntry={true}
+                     password={true}
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({disciplina:text})}
+          />
+          </View>
+          <Button title="Cadastrar" onPress={() => this.props.navigation.push("Home") }
+           accessibilityLabel="Cadastrar disciplina"/>
+           
+        </KeyboardAvoidingView>
+      );
+    }
+  }
+
 // tela de cadastro de Disciplina
 export class CadastroDisciplina extends React.Component {
   constructor(props){
@@ -168,16 +213,8 @@ constructor(props){
     dados:''
   }
 }
-makeAlert(){
-  alunos = getAlunos()
-  Alert.alert(alunos)
-}
 componentDidMount(){
-  alunos = getAlunos().then(data =>{
-    this.setState({
-      dados:data.nome
-    })
-  })
+  
 }
 render() {
     return (
@@ -210,10 +247,18 @@ render() {
 }
 
 const navBar = createStackNavigator({
+  Login: {
+    screen: LoginScreen,
+    navigationOptions: {
+      title: 'Login'
+    }
+  },
   Home: {
     screen: App,
+    headerLeft: null,
     navigationOptions: {
-      title: 'Inicio'
+      title: 'Inicio',
+      headerLeft: null,
     }
   },
   CadastroAluno: {
