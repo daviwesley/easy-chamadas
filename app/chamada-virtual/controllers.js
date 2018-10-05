@@ -58,7 +58,6 @@ const request = (method, endpoint, options) => {
     return result;
 };
 
-<<<<<<< HEAD
 export const getAlunos = () => {
     const token = "b674b5924955293e780ef2ae1c3a05491c994a5e"
     return request(methods.GET, 'api/alunos', { params: token } );
@@ -72,19 +71,3 @@ export const getToken = (nome, senha) => {
   
     return request(methods.POST, 'api/api-token', { params: data });
   };
-=======
-export const getAlunos = () => {  
-    return request(methods.GET, 'api/alunos');
-  };
-//exemplo de 
-/*
-fetch('https://daviwesleyvk.pythonanywhere.com/api/alunos',{
-      method:'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'Authorization':'Token c2040627fbbae52eff1a5f3568964621c9269295'
-      }
-    }*/
-    ).then(response => response.json()).then(response => console.log(response));
->>>>>>> 9f21d24ee1fa2aab6e60da065c83059fd39dcfe6
