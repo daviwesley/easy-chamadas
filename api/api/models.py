@@ -78,6 +78,9 @@ class Fault(models.Model):
 
     class Meta:
         verbose_name = 'Falta'
+    
+    def __str__(self):
+        return self.student.name
 
 # cria um token quando um usuário é criado
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
