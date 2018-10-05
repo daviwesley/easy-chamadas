@@ -5,7 +5,7 @@ import { StyleSheet, View, TextInput , Text, Button, KeyboardAvoidingView,
 import { Card, Icon, ListItem} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
-import { getAlunos} from './controllers'
+import { getAlunos, getToken} from './controllers'
 
 //import { Cadastro } from './components/cadastro';
 
@@ -16,11 +16,13 @@ export class Cadastro extends React.Component {
     this.state = {
       nomeAluno:" ",
       matricula:" ",
+      disciplina:"",
     }
   }
   render() {
       return (
-        <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        <KeyboardAvoidingView  style={{flex:1}}behavior="padding" enabled={Platform.OS === 'ios'} >
+        <ScrollView >
         {/* <StatusBar backgroundColor='black'/> */}
           <View style={{alignItems: 'center',}}>
           <Text style={styles.headerText}>Nome do aluno</Text>
@@ -42,9 +44,18 @@ export class Cadastro extends React.Component {
                     onChangeText={text => this.setState({matricula:text})}
           />
           </View>
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Disciplina</Text>
+          <TextInput placeholder="Digite a matricula do aluno"
+                    style={styles.textInput}
+                    keyboardType='numeric'
+                    maxLength={6}
+                    onChangeText={text => this.setState({disciplina:text})}
+          />
+          </View>
           <Button title="Cadastrar" onPress={() => Alert.alert(this.state.nomeAluno, this.state.matricula) }
            accessibilityLabel="Cadastrar alunos"/>
-           
+        </ScrollView>
         </KeyboardAvoidingView>
       );
     }
@@ -88,15 +99,27 @@ export class LoginScreen extends React.Component {
       senha:""
     }
   }
-  componentDidMount(){
+  componentWillMount(){
     // AsyncStorage.setItem('token', JSON.stringify(result.token));
     AsyncStorage.getItem('token', (err, result) => {
       if(result !== null){
-        Alert.alert("Ja temos seu login")
+        // Alert.alert("Ja temos seu login")
+        Alert.alert(result)
+        this.props.navigation.push("Home")
       }else{
         Alert.alert(err,"Sem login")
       }
     });
+  }
+  fazerLogin(){
+    Alert.alert(this.state.usuario, this.state.senha)
+    getToken(this.state.usuario, this.state.senha)
+    .then(result =>{
+      AsyncStorage.setItem('token', JSON.stringify(result.token));
+      this.props.navigation.push("Home")
+    }).catch( erro =>{
+      Alert.alert("Erro",JSON.stringify(erro))
+    })
   }
   render() {
       return (
@@ -106,24 +129,27 @@ export class LoginScreen extends React.Component {
           <Text style={styles.headerText}>Nome do usuário</Text>
           <TextInput placeholder="Digite o nome da disciplina"
                      style={styles.textInput}
-                     autoCapitalize='words'
+                     autoCapitalize="none"
+                     value={this.props.usuario}
                      returnKeyType='next'
                      //onSubmitEditing={() => { this.secondTextInput.focus(); }}
                      blurOnSubmit={false}
-                     onChangeText={text => this.setState({disciplina:text})}
+                     onChangeText={text => this.setState({usuario:text})}
           />
           <Text style={styles.headerText}>Senha</Text>
           <TextInput placeholder="Digite a senha do usuário"
                      style={styles.textInput}
+                     autoCapitalize="none"
+                     value={this.props.senha}
                      secureTextEntry={true}
                      password={true}
                      returnKeyType='next'
                      //onSubmitEditing={() => { this.secondTextInput.focus(); }}
                      blurOnSubmit={false}
-                     onChangeText={text => this.setState({disciplina:text})}
+                     onChangeText={text => this.setState({senha:text})}
           />
           </View>
-          <Button title="Cadastrar" onPress={() => this.props.navigation.push("Home") }
+          <Button title="Cadastrar" onPress={() =>  this.fazerLogin() }
            accessibilityLabel="Cadastrar disciplina"/>
            
         </KeyboardAvoidingView>
@@ -171,14 +197,27 @@ export class CadastroDisciplina extends React.Component {
         disciplina : '',
         matricula: '',
         aluno:'',
-        apialunos:[]
+        apialunos:[{
+          "name": "Zoë Hange",
+          "id_subscription": 314685,
+          "course": "ES"
+          },
+          {
+          "name": "MIkasa Alckerman",
+          "id_subscription": 798564,
+          "course": "ES"
+          },],
+        token:" "
       }
     }
+    // remove as aspas
+    // var someStr = 'He said "Hello, my name is Foo"';
+    // console.log(someStr.replace(/['"]+/g, ''));
     componentDidMount(){
-      getAlunos().then(dados => this.setState({apialunos:dados})).
-      catch(error =>{
-        Alert.alert("Erro",error.detail)
-      })
+      //url = "https://daviwesleyvk.pythonanywhere.com/api/alunos";
+      AsyncStorage.getItem('token', (err, result) =>{
+        this.setState({token:result})
+      });
     }
     render() {
         return (
