@@ -25,7 +25,11 @@ SECRET_KEY = 'l@yo1r#!adp-!a!)h3k01767nsyi!gzz+=@#l+emk)oi@4coi_'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+<<<<<<< HEAD
 ALLOWED_HOSTS = ['*']
+=======
+ALLOWED_HOSTS = ['daviwesleyvk.pythonanywhere.com']
+>>>>>>> 9f21d24ee1fa2aab6e60da065c83059fd39dcfe6
 
 
 # Application definition
@@ -131,5 +135,12 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_URL = STATIC_ROOT= os.path.join(BASE_DIR,'static/')
+
+# default static files settings for PythonAnywhere.
+# see https://help.pythonanywhere.com/pages/DjangoStaticFiles for more info
+MEDIA_ROOT = u'/home/daviwesleyvk/easy-chamadas/media'
+MEDIA_URL = '/media/'
+STATIC_ROOT = u'/home/daviwesleyvk/easy-chamadas/static'
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
