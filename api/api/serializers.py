@@ -14,7 +14,7 @@ class SubjectSerializer(serializers.ModelSerializer):
 class FaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fault
-        fields = ('faults', 'student', 'subject')
+        fields = ('faults', 'student', 'subject', 'day')
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:

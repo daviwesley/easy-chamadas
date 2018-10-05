@@ -72,9 +72,10 @@ class Situation(models.Model):
         verbose_name = 'Situação'
 
 class Fault(models.Model):
-    faults = models.IntegerField(verbose_name='faltas')
+    faults = models.IntegerField(verbose_name='Faltas')
     student = models.ForeignKey(Student, on_delete=models.CASCADE, verbose_name='Aluno')
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE, verbose_name='Disciplina')
+    day = models.DateField(auto_now=True, verbose_name="Data")
 
     class Meta:
         verbose_name = 'Falta'
