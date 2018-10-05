@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, TextInput , Text, Button, KeyboardAvoidingView,
-Picker, Alert, Platform, StatusBar,
+Picker, Alert, Platform, StatusBar, ScrollView
 } from 'react-native';
-import { Card, Icon,} from 'react-native-elements'
+import { Card, Icon, ListItem} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
 import { getAlunos} from './controllers'
@@ -164,9 +164,13 @@ export class CadastroDisciplina extends React.Component {
         disciplina : '',
         matricula: '',
         aluno:'',
+        apialunos:[]
       }
     }
+    componentDidMount(){
+      getAlunos().then(dados => this.setState({apialunos:dados}))
 
+    }
     render() {
         return (
           <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
@@ -200,7 +204,16 @@ export class CadastroDisciplina extends React.Component {
           </View>
           <Button title="Cadastrar" onPress={() => null }
            accessibilityLabel="Cadastrar alunos"/>
-           
+           {/* renderizar os alunos */}
+          <ScrollView style={{padding:15}}>
+          {this.state.apialunos.map
+          ((alunos, index) =>(
+            <ListItem
+              title={alunos.name}
+              key={index}
+              />
+          ))}
+          </ScrollView>
         </KeyboardAvoidingView>
         );
       }
@@ -218,6 +231,7 @@ componentDidMount(){
 }
 render() {
     return (
+      <ScrollView>
       <Grid>
         <Col>
           <Card title="Cadastrar Alunos">
@@ -225,9 +239,14 @@ render() {
             onPress={() => this.props.navigation.navigate('CadastroAluno')} />
           </Card>
           <Card title="Cadastrar Disciplina">
-            <Icon size={70} name="check-circle"
+            <Icon size={70} name="school"
             onPress={() => this.props.navigation.navigate("Disciplina")}
             />
+          </Card>
+          <Card title={"Chamadas"} >
+            <Icon size={70} name="live-help"
+            // raised={true}
+            onPress={() => this.props.navigation.navigate("C")}/>
           </Card>
         </Col>
         <Col>
@@ -236,12 +255,13 @@ render() {
             onPress={() => this.props.navigation.navigate('Chamada')}/>
           </Card>
           <Card title={"Cadastrar Professor"} >
-            <Icon size={70} name="live-help"
+            <Icon size={70} name="account-circle"
             // raised={true}
             onPress={() => this.props.navigation.navigate("Professor")}/>
           </Card>
         </Col>
       </Grid>
+      </ScrollView>
     );
   }
 }

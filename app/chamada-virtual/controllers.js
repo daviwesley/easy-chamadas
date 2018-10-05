@@ -13,7 +13,7 @@ const methods = {
 
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = "http://192.168.137.1:8000/" + endpoint;
+        let url = "https://daviwesleyvk.pythonanywhere.com/" + endpoint;
 
         const headers = {
             Accept: 'application/json',
@@ -59,7 +59,7 @@ const request = (method, endpoint, options) => {
 };
 
 export const getAlunos = () => {
-    const token = "b674b5924955293e780ef2ae1c3a05491c994a5e"
+    const token = "a8e88182dc4096bac82ff98574b4435c4573c34e"
     return request(methods.GET, 'api/alunos', { params: token } );
 };
 
