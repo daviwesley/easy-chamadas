@@ -20,7 +20,7 @@ class TestAluno(TestCase):
         self.assertTrue(isinstance(self.student, Student))
         self.assertEquals(self.student.__str__(), self.student.name)
 
-class TestURLS(TestCase):
+class TestURLSNoToken(TestCase):
     #fixtures = ['dados_api']
 
     def setUP(self):
