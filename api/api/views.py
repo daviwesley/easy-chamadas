@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from rest_framework import generics
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, IsAdminUser
 
 from .serializers import StudentSerializer, FaultSerializer, TeacherSerializer
 from .models import Student, Fault, Teacher
@@ -29,7 +29,7 @@ class StudentSearchViewAPI(generics.ListAPIView):
 
 class TeacherViewAPI(generics.ListAPIView):
     #authentication_classes = (BasicAuthentication,)
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAdminUser,)
     serializer_class = TeacherSerializer
     queryset = Teacher.objects.all()
     
