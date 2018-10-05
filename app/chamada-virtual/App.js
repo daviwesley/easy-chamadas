@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TextInput , Text, Button, KeyboardAvoidingView,
-Picker, Alert, Platform, StatusBar, ScrollView
+ Alert, Platform, ScrollView, AsyncStorage,
 } from 'react-native';
 import { Card, Icon, ListItem} from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
@@ -168,8 +168,10 @@ export class CadastroDisciplina extends React.Component {
       }
     }
     componentDidMount(){
-      getAlunos().then(dados => this.setState({apialunos:dados}))
-
+      getAlunos().then(dados => this.setState({apialunos:dados})).
+      catch(error =>{
+        Alert.alert("Erro",error.detail)
+      })
     }
     render() {
         return (
