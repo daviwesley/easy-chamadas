@@ -88,8 +88,15 @@ export class LoginScreen extends React.Component {
       senha:""
     }
   }
-  componentWillMount(){
-    
+  componentDidMount(){
+    // AsyncStorage.setItem('token', JSON.stringify(result.token));
+    AsyncStorage.getItem('token', (err, result) => {
+      if(result !== null){
+        Alert.alert("Ja temos seu login")
+      }else{
+        Alert.alert(err,"Sem login")
+      }
+    });
   }
   render() {
       return (
