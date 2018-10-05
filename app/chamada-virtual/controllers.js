@@ -63,7 +63,7 @@ export const getAlunos = () => {
     return request(methods.GET, 'api/alunos', { params: token } );
 };
 
-export const signIn = (nome, senha) => {
+export const getToken = (nome, senha) => {
     const data = {
       username: nome,
       password: senha
