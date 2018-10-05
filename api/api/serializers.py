@@ -1,5 +1,5 @@
 from rest_framework import serializers, viewsets
-from .models import Student, Subject, Fault
+from .models import Student, Subject, Fault, Teacher
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -15,3 +15,8 @@ class FaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fault
         fields = ('faults', 'student', 'subject')
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Teacher
+        fields = ('name',)

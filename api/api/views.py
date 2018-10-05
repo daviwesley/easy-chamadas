@@ -1,9 +1,11 @@
 from django.shortcuts import render
+
 from rest_framework import generics
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication, TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from .serializers import StudentSerializer, FaultSerializer
-from .models import Student, Fault
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from .serializers import StudentSerializer, FaultSerializer, TeacherSerializer
+from .models import Student, Fault, Teacher
 
 # Create your views here.
 
@@ -24,3 +26,10 @@ class StudentSearchViewAPI(generics.ListAPIView):
     def get_queryset(self):
         id = self.kwargs['id']
         return Student.objects.filter(id_subscription=id)
+
+class TeacherViewAPI(generics.ListAPIView):
+    #authentication_classes = (BasicAuthentication,)
+    permission_classes = (AllowAny,)
+    serializer_class = TeacherSerializer
+    queryset = Teacher.objects.all()
+    

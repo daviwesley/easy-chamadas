@@ -38,5 +38,11 @@ class TestURLSNoToken(TestCase):
     def test_url_api_students_id(self):
         response = self.client.get('/api/alunos/381097')
         self.assertEquals(response.status_code, 401)
+
+class TestaURLProfessores(TestCase):
+    def testa_url_professores_deve_retorna_200(self):
+        response = self.client.get('/api/professores')
+        self.assertEquals(response.status_code, 200)
+
     
     
