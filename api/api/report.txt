@@ -1,0 +1,373 @@
+************* Module api.admin
+admin.py:2:63: C0326: Exactly one space required after comma
+from .models import Teacher, Student, Subject, Situation, Fault,Course
+                                                               ^ (bad-whitespace)
+admin.py:9:0: C0304: Final newline missing (missing-final-newline)
+admin.py:1:0: C0111: Missing module docstring (missing-docstring)
+admin.py:1:0: E0401: Unable to import 'django.contrib' (import-error)
+admin.py:2:0: W0611: Unused Situation imported from models (unused-import)
+************* Module api.apps
+apps.py:1:0: C0111: Missing module docstring (missing-docstring)
+apps.py:1:0: E0401: Unable to import 'django.apps' (import-error)
+apps.py:4:0: C0111: Missing class docstring (missing-docstring)
+apps.py:4:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.models
+models.py:35:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('ES', 'Engenharia de Software'),
+    ^   | (bad-continuation)
+models.py:36:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('CC', 'Ciências da Computação'),
+    ^   | (bad-continuation)
+models.py:37:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EP', 'Engenharia da Produção'),
+    ^   | (bad-continuation)
+models.py:38:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EC', 'Engenharia Civil'),
+    ^   | (bad-continuation)
+models.py:39:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EM', 'Engenharia Mecânica'),
+    ^   | (bad-continuation)
+models.py:46:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('ES', 'Engenharia de Software'),
+    ^   | (bad-continuation)
+models.py:47:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('CC', 'Ciências da Computação'),
+    ^   | (bad-continuation)
+models.py:48:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EP', 'Engenharia da Produção'),
+    ^   | (bad-continuation)
+models.py:49:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EC', 'Engenharia Civil'),
+    ^   | (bad-continuation)
+models.py:50:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('EM', 'Engenharia Mecânica'),
+    ^   | (bad-continuation)
+models.py:66:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('REP', 'Reprovado por falta'),
+    ^   | (bad-continuation)
+models.py:67:0: C0330: Wrong hanging indentation (add 4 spaces).
+    ('ATV', 'Ativo'),
+    ^   | (bad-continuation)
+models.py:82:0: C0303: Trailing whitespace (trailing-whitespace)
+models.py:1:0: C0111: Missing module docstring (missing-docstring)
+models.py:1:0: E0401: Unable to import 'django.db' (import-error)
+models.py:2:0: E0401: Unable to import 'django.conf' (import-error)
+models.py:3:0: E0401: Unable to import 'django.db.models.signals' (import-error)
+models.py:4:0: E0401: Unable to import 'django.dispatch' (import-error)
+models.py:5:0: E0401: Unable to import 'rest_framework.authtoken.models' (import-error)
+models.py:9:0: C0111: Missing class docstring (missing-docstring)
+models.py:15:4: C0111: Missing class docstring (missing-docstring)
+models.py:15:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:9:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+models.py:20:0: C0111: Missing class docstring (missing-docstring)
+models.py:26:4: C0111: Missing class docstring (missing-docstring)
+models.py:26:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:20:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+models.py:33:0: C0111: Missing class docstring (missing-docstring)
+models.py:33:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:44:0: C0111: Missing class docstring (missing-docstring)
+models.py:58:4: C0111: Missing class docstring (missing-docstring)
+models.py:58:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:44:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+models.py:64:0: C0111: Missing class docstring (missing-docstring)
+models.py:71:4: C0111: Missing class docstring (missing-docstring)
+models.py:71:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:64:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:74:0: C0111: Missing class docstring (missing-docstring)
+models.py:80:4: C0111: Missing class docstring (missing-docstring)
+models.py:80:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+models.py:74:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+models.py:88:0: C0111: Missing function docstring (missing-docstring)
+models.py:88:22: W0613: Unused argument 'sender' (unused-argument)
+models.py:88:0: W0613: Unused argument 'kwargs' (unused-argument)
+************* Module api.serializers
+serializers.py:22:0: C0304: Final newline missing (missing-final-newline)
+serializers.py:1:0: C0111: Missing module docstring (missing-docstring)
+serializers.py:1:0: E0401: Unable to import 'rest_framework' (import-error)
+serializers.py:4:0: C0111: Missing class docstring (missing-docstring)
+serializers.py:5:4: C0111: Missing class docstring (missing-docstring)
+serializers.py:5:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:4:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:9:0: C0111: Missing class docstring (missing-docstring)
+serializers.py:10:4: C0111: Missing class docstring (missing-docstring)
+serializers.py:10:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:9:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:14:0: C0111: Missing class docstring (missing-docstring)
+serializers.py:15:4: C0111: Missing class docstring (missing-docstring)
+serializers.py:15:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:14:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:19:0: C0111: Missing class docstring (missing-docstring)
+serializers.py:20:4: C0111: Missing class docstring (missing-docstring)
+serializers.py:20:4: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:19:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+serializers.py:1:0: W0611: Unused viewsets imported from rest_framework (unused-import)
+************* Module api.urls
+urls.py:12:69: C0326: No space allowed before bracket
+    path('professores', TeacherViewAPI.as_view(), name='professores' ),
+                                                                     ^ (bad-whitespace)
+urls.py:1:0: C0111: Missing module docstring (missing-docstring)
+urls.py:1:0: E0401: Unable to import 'django.contrib' (import-error)
+urls.py:2:0: E0401: Unable to import 'django.urls' (import-error)
+urls.py:5:0: E0401: Unable to import 'rest_framework.authtoken' (import-error)
+urls.py:7:0: C0103: Constant name "urlpatterns" doesn't conform to UPPER_CASE naming style (invalid-name)
+urls.py:1:0: W0611: Unused admin imported from django.contrib (unused-import)
+urls.py:5:0: C0411: first party import "from rest_framework.authtoken import views" should be placed before "from .views import StudentViewAPI, FaultViewAPI, StudentSearchViewAPI, TeacherViewAPI, SubjectViewAPI" (wrong-import-order)
+************* Module api.views
+views.py:4:0: C0301: Line too long (105/100) (line-too-long)
+views.py:1:0: C0111: Missing module docstring (missing-docstring)
+views.py:1:0: E0401: Unable to import 'django.shortcuts' (import-error)
+views.py:3:0: E0401: Unable to import 'rest_framework' (import-error)
+views.py:4:0: E0401: Unable to import 'rest_framework.authentication' (import-error)
+views.py:5:0: E0401: Unable to import 'rest_framework.permissions' (import-error)
+views.py:12:0: C0111: Missing class docstring (missing-docstring)
+views.py:12:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+views.py:16:0: C0111: Missing class docstring (missing-docstring)
+views.py:16:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+views.py:23:0: C0111: Missing class docstring (missing-docstring)
+views.py:26:4: C0111: Missing method docstring (missing-docstring)
+views.py:27:8: W0622: Redefining built-in 'id' (redefined-builtin)
+views.py:27:8: C0103: Variable name "id" doesn't conform to snake_case naming style (invalid-name)
+views.py:23:0: R0903: Too few public methods (1/2) (too-few-public-methods)
+views.py:30:0: C0111: Missing class docstring (missing-docstring)
+views.py:30:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+views.py:36:0: C0111: Missing class docstring (missing-docstring)
+views.py:36:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+views.py:1:0: W0611: Unused render imported from django.shortcuts (unused-import)
+views.py:5:0: W0611: Unused IsAuthenticated imported from rest_framework.permissions (unused-import)
+************* Module api.migrations.0001_initial
+migrations\0001_initial.py:17:0: C0301: Line too long (114/100) (line-too-long)
+migrations\0001_initial.py:18:0: C0301: Line too long (132/100) (line-too-long)
+migrations\0001_initial.py:31:0: C0301: Line too long (114/100) (line-too-long)
+migrations\0001_initial.py:1:0: C0103: Module name "0001_initial" doesn't conform to snake_case naming style (invalid-name)
+migrations\0001_initial.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0001_initial.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0001_initial.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0001_initial.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0002_auto_20180928_2033
+migrations\0002_auto_20180928_2033.py:16:0: C0301: Line too long (114/100) (line-too-long)
+migrations\0002_auto_20180928_2033.py:1:0: C0103: Module name "0002_auto_20180928_2033" doesn't conform to snake_case naming style (invalid-name)
+migrations\0002_auto_20180928_2033.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0002_auto_20180928_2033.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0002_auto_20180928_2033.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0002_auto_20180928_2033.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0003_auto_20180928_2141
+migrations\0003_auto_20180928_2141.py:17:0: C0301: Line too long (114/100) (line-too-long)
+migrations\0003_auto_20180928_2141.py:19:0: C0301: Line too long (110/100) (line-too-long)
+migrations\0003_auto_20180928_2141.py:20:0: C0301: Line too long (110/100) (line-too-long)
+migrations\0003_auto_20180928_2141.py:1:0: C0103: Module name "0003_auto_20180928_2141" doesn't conform to snake_case naming style (invalid-name)
+migrations\0003_auto_20180928_2141.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0003_auto_20180928_2141.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0003_auto_20180928_2141.py:4:0: E0401: Unable to import 'django.db.models.deletion' (import-error)
+migrations\0003_auto_20180928_2141.py:7:0: C0111: Missing class docstring (missing-docstring)
+migrations\0003_auto_20180928_2141.py:7:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0004_auto_20180928_2151
+migrations\0004_auto_20180928_2151.py:1:0: C0103: Module name "0004_auto_20180928_2151" doesn't conform to snake_case naming style (invalid-name)
+migrations\0004_auto_20180928_2151.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0004_auto_20180928_2151.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0004_auto_20180928_2151.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0004_auto_20180928_2151.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0005_auto_20180928_2157
+migrations\0005_auto_20180928_2157.py:31:0: C0301: Line too long (121/100) (line-too-long)
+migrations\0005_auto_20180928_2157.py:36:0: C0301: Line too long (126/100) (line-too-long)
+migrations\0005_auto_20180928_2157.py:1:0: C0103: Module name "0005_auto_20180928_2157" doesn't conform to snake_case naming style (invalid-name)
+migrations\0005_auto_20180928_2157.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0005_auto_20180928_2157.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0005_auto_20180928_2157.py:4:0: E0401: Unable to import 'django.db.models.deletion' (import-error)
+migrations\0005_auto_20180928_2157.py:7:0: C0111: Missing class docstring (missing-docstring)
+migrations\0005_auto_20180928_2157.py:7:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0006_course
+migrations\0006_course.py:16:0: C0301: Line too long (114/100) (line-too-long)
+migrations\0006_course.py:17:0: C0301: Line too long (229/100) (line-too-long)
+migrations\0006_course.py:1:0: C0103: Module name "0006_course" doesn't conform to snake_case naming style (invalid-name)
+migrations\0006_course.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0006_course.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0006_course.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0006_course.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0007_student_course
+migrations\0007_student_course.py:17:0: C0301: Line too long (131/100) (line-too-long)
+migrations\0007_student_course.py:1:0: C0103: Module name "0007_student_course" doesn't conform to snake_case naming style (invalid-name)
+migrations\0007_student_course.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0007_student_course.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0007_student_course.py:4:0: E0401: Unable to import 'django.db.models.deletion' (import-error)
+migrations\0007_student_course.py:7:0: C0111: Missing class docstring (missing-docstring)
+migrations\0007_student_course.py:7:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0008_auto_20180929_1240
+migrations\0008_auto_20180929_1240.py:16:0: C0301: Line too long (221/100) (line-too-long)
+migrations\0008_auto_20180929_1240.py:1:0: C0103: Module name "0008_auto_20180929_1240" doesn't conform to snake_case naming style (invalid-name)
+migrations\0008_auto_20180929_1240.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0008_auto_20180929_1240.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0008_auto_20180929_1240.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0008_auto_20180929_1240.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0009_fault_day
+migrations\0009_fault_day.py:1:0: C0103: Module name "0009_fault_day" doesn't conform to snake_case naming style (invalid-name)
+migrations\0009_fault_day.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0009_fault_day.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0009_fault_day.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0009_fault_day.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+************* Module api.migrations.0010_auto_20181004_2352
+migrations\0010_auto_20181004_2352.py:1:0: C0103: Module name "0010_auto_20181004_2352" doesn't conform to snake_case naming style (invalid-name)
+migrations\0010_auto_20181004_2352.py:1:0: C0111: Missing module docstring (missing-docstring)
+migrations\0010_auto_20181004_2352.py:3:0: E0401: Unable to import 'django.db' (import-error)
+migrations\0010_auto_20181004_2352.py:6:0: C0111: Missing class docstring (missing-docstring)
+migrations\0010_auto_20181004_2352.py:6:0: R0903: Too few public methods (0/2) (too-few-public-methods)
+
+
+Report
+======
+154 statements analysed.
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |18     |18         |=          |11.11       |55.56    |
++---------+-------+-----------+-----------+------------+---------+
+|class    |35     |35         |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |5      |5          |=          |80.00       |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |1      |1          |=          |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+External dependencies
+---------------------
+::
+
+    api 
+      \-models (api.admin,api.serializers,api.views)
+      \-serializers (api.views)
+      \-views (api.urls)
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |401    |78.32 |401      |=          |
++----------+-------+------+---------+-----------+
+|docstring |1      |0.20  |1        |=          |
++----------+-------+------+---------+-----------+
+|comment   |17     |3.32  |17       |=          |
++----------+-------+------+---------+-----------+
+|empty     |93     |18.16 |93       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |97     |97       |=          |
++-----------+-------+---------+-----------+
+|refactor   |35     |35       |=          |
++-----------+-------+---------+-----------+
+|warning    |8      |8        |=          |
++-----------+-------+---------+-----------+
+|error      |28     |28       |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++---------------------------------------+------+--------+---------+-----------+
+|module                                 |error |warning |refactor |convention |
++=======================================+======+========+=========+===========+
+|api.models                             |17.86 |25.00   |31.43    |26.80      |
++---------------------------------------+------+--------+---------+-----------+
+|api.views                              |14.29 |37.50   |14.29    |9.28       |
++---------------------------------------+------+--------+---------+-----------+
+|api.urls                               |10.71 |12.50   |0.00     |4.12       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0003_auto_20180928_2141 |7.14  |0.00    |2.86     |6.19       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0005_auto_20180928_2157 |7.14  |0.00    |2.86     |5.15       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0007_student_course     |7.14  |0.00    |2.86     |4.12       |
++---------------------------------------+------+--------+---------+-----------+
+|api.serializers                        |3.57  |12.50   |22.86    |10.31      |
++---------------------------------------+------+--------+---------+-----------+
+|api.admin                              |3.57  |12.50   |0.00     |3.09       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0001_initial            |3.57  |0.00    |2.86     |6.19       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0006_course             |3.57  |0.00    |2.86     |5.15       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0008_auto_20180929_1240 |3.57  |0.00    |2.86     |4.12       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0002_auto_20180928_2033 |3.57  |0.00    |2.86     |4.12       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0010_auto_20181004_2352 |3.57  |0.00    |2.86     |3.09       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0009_fault_day          |3.57  |0.00    |2.86     |3.09       |
++---------------------------------------+------+--------+---------+-----------+
+|api.migrations.0004_auto_20180928_2151 |3.57  |0.00    |2.86     |3.09       |
++---------------------------------------+------+--------+---------+-----------+
+|api.apps                               |3.57  |0.00    |2.86     |2.06       |
++---------------------------------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------------------+------------+
+|message id             |occurrences |
++=======================+============+
+|missing-docstring      |53          |
++-----------------------+------------+
+|too-few-public-methods |35          |
++-----------------------+------------+
+|import-error           |28          |
++-----------------------+------------+
+|line-too-long          |14          |
++-----------------------+------------+
+|invalid-name           |12          |
++-----------------------+------------+
+|bad-continuation       |12          |
++-----------------------+------------+
+|unused-import          |5           |
++-----------------------+------------+
+|unused-argument        |2           |
++-----------------------+------------+
+|missing-final-newline  |2           |
++-----------------------+------------+
+|bad-whitespace         |2           |
++-----------------------+------------+
+|wrong-import-order     |1           |
++-----------------------+------------+
+|trailing-whitespace    |1           |
++-----------------------+------------+
+|redefined-builtin      |1           |
++-----------------------+------------+
+
+
+
+
+--------------------------------------------------------------------
+Your code has been rated at -8.18/10 (previous run: -8.18/10, +0.00)
+

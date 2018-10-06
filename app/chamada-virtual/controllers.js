@@ -13,7 +13,7 @@ const methods = {
 
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = "https://daviwesleyvk.pythonanywhere.com/" + endpoint;
+        let url = "169.254.235.9:8000/" + endpoint;
 
         const headers = {
             Accept: 'application/json',
