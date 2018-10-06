@@ -10,4 +10,4 @@ install:
 
 script:
   - cd api
-  - python manage.py test
+  - python manage.py test api/test
