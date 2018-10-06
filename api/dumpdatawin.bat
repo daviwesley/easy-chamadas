@@ -1,0 +1,1 @@
+python manage.py dumpdata --indent=4 --natural-foreign --exclude=auth.permission --exclude=contenttypes.contenttype > api/fixtures/datadumped.json
