@@ -4,7 +4,7 @@ from .models import Student, Subject, Fault, Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('id','name', 'id_subscription', 'course', 'subject')
+        fields = ('name', 'id_subscription', 'course', 'subject')
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
