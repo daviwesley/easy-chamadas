@@ -27,7 +27,7 @@ class StudentSearchViewAPI(generics.ListAPIView):
         id = self.kwargs['id']
         return Student.objects.filter(id_subscription=id)
 
-class TeacherViewAPI(generics.ListAPIView):
+class TeacherViewAPI(generics.ListCreateAPIView):
     #authentication_classes = (BasicAuthentication,)
     permission_classes = (IsAdminUser,)
     serializer_class = TeacherSerializer
