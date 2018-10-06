@@ -3,7 +3,6 @@ import { StyleSheet, ScrollView, } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
-import { getAlunos, getToken} from './controllers'
 
 import { CadastroTeacher } from './components/CadastroProfessor/cadastroProfessor';
 import { LoginScreen } from './components/Login/LoginScreen'
