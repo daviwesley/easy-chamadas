@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, Button, 
-StyleSheet, AsyncStorage } from 'react-native';
+StyleSheet, AsyncStorage, Alert } from 'react-native';
+
+import { getToken } from '../../controllers'
 
 export class LoginScreen extends React.Component {
     constructor(props){
@@ -10,25 +12,30 @@ export class LoginScreen extends React.Component {
         senha:""
       }
     }
-    componentWillMount(){  
+    componentWillMount(){
       AsyncStorage.getItem('token', (err, result) => {
         if(result !== null){
           // Alert.alert("Ja temos seu login")
           // Alert.alert(result)
           this.props.navigation.push("Home")
         }else{
-          Alert.alert(err,"Sem login")
+          Alert.alert("Seja Bem Vindo!","Faça o login para prosseguir :)")
         }
       });
     }
     fazerLogin(){
-      Alert.alert(this.state.usuario, this.state.senha)
+      //Alert.alert(this.state.usuario, this.state.senha)
       getToken(this.state.usuario, this.state.senha)
       .then(result =>{
         AsyncStorage.setItem('token', JSON.stringify(result.token));
         this.props.navigation.push("Home")
       }).catch( erro =>{
-        Alert.alert("Erro",JSON.stringify(erro))
+        if(erro.non_field_errors){
+          Alert.alert("Erro", "Usuário ou senha incorretas")
+        }else{
+          Alert.alert("Erro", JSON.stringify(erro))
+          console.log(erro)
+        }
       })
     }
     render() {

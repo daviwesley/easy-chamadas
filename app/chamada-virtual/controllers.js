@@ -1,5 +1,6 @@
 import {
     Alert,
+    AsyncStorage
 } from 'react-native';
 
 
@@ -10,10 +11,10 @@ const methods = {
     POST: 'POST',
     PUT: 'PUT',
 };
-
+const url_dev = "http://169.254.235.9:8000/"
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = "169.254.235.9:8000/" + endpoint;
+        let url = url_dev + endpoint;
 
         const headers = {
             Accept: 'application/json',
@@ -70,4 +71,4 @@ export const getToken = (nome, senha) => {
     };
   
     return request(methods.POST, 'api/api-token', { params: data });
-  };
+};

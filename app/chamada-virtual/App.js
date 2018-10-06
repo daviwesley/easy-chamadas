@@ -1,14 +1,17 @@
 import React from 'react';
-import { StyleSheet, ScrollView, } from 'react-native';
+import { StyleSheet, ScrollView, AsyncStorage } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
 
+//telas
 import { CadastroTeacher } from './components/CadastroProfessor/cadastroProfessor';
 import { LoginScreen } from './components/Login/LoginScreen'
 import { CadastroDisciplina } from './components/CadastroDisciplina/CadastroDisciplina'
 import { CadastroAluno } from './components/CadastroAluno/CadastroAluno';
 import { ChamadaScreen } from './components/Chamada/ChamadaScreen';
+
+//funções e variaveis
 
 class App extends React.Component {
 constructor(props){
@@ -16,6 +19,10 @@ constructor(props){
   this.state = {
     dados:''
   }
+}
+sair(){
+  AsyncStorage.removeItem('token')
+  this.props.navigation.push("Login")
 }
 componentDidMount(){
   
@@ -34,10 +41,10 @@ render() {
             onPress={() => this.props.navigation.navigate("Disciplina")}
             />
           </Card>
-          <Card title={"Chamadas"} >
+          <Card title={"Sair"} >
             <Icon size={70} name="live-help"
             // raised={true}
-            onPress={() => this.props.navigation.navigate("C")}/>
+            onPress={() => this.sair() }/>
           </Card>
         </Col>
         <Col>
@@ -61,7 +68,8 @@ const navBar = createStackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: {
-      title: 'Login'
+      title: 'Login',
+      headerLeft: null,
     }
   },
   Home: {
