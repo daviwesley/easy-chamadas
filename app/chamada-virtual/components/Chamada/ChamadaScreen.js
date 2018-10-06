@@ -3,8 +3,6 @@ import { View, Text, TextInput, KeyboardAvoidingView, Button,
         StyleSheet, ScrollView, AsyncStorage } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
-import { getAlunos, getToken} from '../../controllers'
-
 export class ChamadaScreen extends React.Component {
     constructor(){
         super();
@@ -19,6 +17,21 @@ export class ChamadaScreen extends React.Component {
       // remove as aspas
       // var someStr = 'He said "Hello, my name is Foo"';
       // console.log(someStr.replace(/['"]+/g, ''));
+      getAlunos(){
+        fetch("http://169.254.235.9:8000/api/alunos",{
+          method:'GET',
+          headers:{
+            Authorization: "Token a167012bd6d0df32632084a15e81fee055f366e4",
+          },
+        }).then(dados => dados.json()).then(dados => {
+            this.setState({
+                apialunos:dados
+            })
+        })
+        .catch(error => {
+            Alert.alert(JSON.stringify(error))
+        });
+      }
       componentDidMount(){
         //url = "https://daviwesleyvk.pythonanywhere.com/api/alunos";
         AsyncStorage.getItem('token', (err, result) =>{
@@ -26,40 +39,11 @@ export class ChamadaScreen extends React.Component {
           console.log("token dentro do Async",this.state.token)
         });
         //console.log("sem aspas", this.state.token.replace(/['"]+/g, ''))
+        this.getAlunos()
       }
       render() {
           return (
             <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
-          {/* <StatusBar backgroundColor='black'/> */}
-            <View style={{alignItems: 'center',}}>
-            <Text style={styles.headerText}>Nome do aluno</Text>
-            <TextInput placeholder="Digite o nome do aluno"
-                       style={styles.textInput}
-                       autoCapitalize='words'
-                       returnKeyType='next'
-                       //onSubmitEditing={() => { this.secondTextInput.focus(); }}
-                       blurOnSubmit={false}
-                       onChangeText={text => this.setState({aluno:text})}
-            />
-            </View>
-            <View style={{alignItems: 'center',}}>
-            <Text style={styles.headerText}>Matricula do aluno</Text>
-            <TextInput placeholder="Digite a matricula do aluno"
-                      style={styles.textInput}
-                      keyboardType='numeric'
-                      maxLength={6}
-                      onChangeText={text => this.setState({matricula:text})}
-            />
-            </View>
-            <View style={{alignItems: 'center',}}>
-            <Text style={styles.headerText}>Disciplina</Text>
-            <TextInput placeholder="Digite a disciplina"
-                      style={styles.textInput}
-                      onChangeText={text => this.setState({disciplina:text})}
-            />
-            </View>
-            <Button title="Cadastrar" onPress={() => null }
-             accessibilityLabel="Cadastrar alunos"/>
              {/* renderizar os alunos */}
             <ScrollView style={{padding:15}}>
             {this.state.apialunos.map

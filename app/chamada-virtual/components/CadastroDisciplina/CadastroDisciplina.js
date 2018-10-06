@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, Button, 
-StyleSheet, Platform } from 'react-native';
+StyleSheet, Platform, ScrollView } from 'react-native';
 
 export class CadastroDisciplina extends React.Component {
     constructor(props){
@@ -18,7 +18,7 @@ export class CadastroDisciplina extends React.Component {
           "name": this.state.disciplina,
           "hours": this.state.horas,
           "credit": this.state.creditos,
-          "teacher": this.state.professor
+          "teacher": [this.state.professor]
         }
         const datajson = JSON.stringify(data);
         fetch("http://169.254.235.9:8000/api/disciplinas",{

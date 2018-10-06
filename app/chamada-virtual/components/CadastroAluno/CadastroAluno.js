@@ -6,16 +6,18 @@ export class CadastroAluno extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-          nomeAluno:" ",
+          nome:" ",
           matricula:" ",
-          disciplina:" ",
+          cadeira:" ",
+          curso:""
         }
       }
       cadastrar(){
         let data = {
-          "course": this.state.disciplina,
+          "course": this.state.curso,
           "id_subscription": this.state.matricula,
-          "name": this.state.nomeAluno
+          "name": this.state.nome,
+          "subject":[this.state.cadeira]
         }
         const datajson = JSON.stringify(data);
         fetch("http://169.254.235.9:8000/api/alunos",{
@@ -45,7 +47,7 @@ export class CadastroAluno extends React.Component {
                          returnKeyType='next'
                          //onSubmitEditing={() => { this.secondTextInput.focus(); }}
                          blurOnSubmit={false}
-                         onChangeText={text => this.setState({nomeAluno:text})}
+                         onChangeText={text => this.setState({nome:text})}
               />
               </View>
               <View style={{alignItems: 'center',}}>
@@ -59,12 +61,23 @@ export class CadastroAluno extends React.Component {
               </View>
               <View style={{alignItems: 'center',}}>
               <Text style={styles.headerText}>Curso</Text>
-              <TextInput placeholder="Digite a matricula do aluno"
+              <TextInput placeholder="Digite o nome do curso(ES,CC)"
                         style={styles.textInput}
                         // keyboardType='numeric'
                         // maxLength={6}
                         autoCapitalize="none"
-                        onChangeText={text => this.setState({disciplina:text})}
+                        onChangeText={text => this.setState({curso:text})}
+              />
+              </View>
+              <View style={{alignItems: 'center',}}>
+              <Text style={styles.headerText}>Disciplina</Text>
+              <TextInput placeholder="Digite o id da disciplinar"
+                         style={styles.textInput}
+                         keyboardType='numeric'
+                         returnKeyType='next'
+                         //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                         blurOnSubmit={false}
+                         onChangeText={text => this.setState({cadeira:text})}
               />
               </View>
               <Button title="Cadastrar" onPress={() => this.cadastrar() }
