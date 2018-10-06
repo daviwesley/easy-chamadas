@@ -4,19 +4,19 @@ from .models import Student, Subject, Fault, Teacher
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ('name', 'id_subscription', 'course')
+        fields = ('id','name', 'id_subscription', 'course', 'subject')
 
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ('name', 'hours', 'credit', 'teacher')
+        fields = ('id','name', 'hours', 'credit', 'teacher',)
 
 class FaultSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fault
-        fields = ('faults', 'student', 'subject', 'day')
+        fields = ('id','faults', 'student', 'subject', 'day')
 
 class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
-        fields = ('name',)
+        fields = ('id','name',)
