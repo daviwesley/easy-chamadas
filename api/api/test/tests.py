@@ -1,6 +1,5 @@
 from django.test import TestCase, Client
 from django.utils.timezone import datetime
-from django.db import models
 from django.contrib.auth.models import User
 
 from rest_framework.test import APIRequestFactory
