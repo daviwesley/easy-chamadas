@@ -39,7 +39,7 @@ class TestAluno(TestCase):
         # Assert
         self.assertEqual(nome, "joão")
 
-class TestURLSNoToken(TestCase):
+class TestURLsemToken(TestCase):
     #fixtures = ['datadumped']
 
     def setUP(self):
@@ -81,7 +81,3 @@ class TestaURLcomToken(TestCase):
     def test_url_api_students_id_with_token(self):
         response = self.client.get('/api/alunos/381097')
         self.assertEquals(response.status_code, 200)
-
-
-    
-    
