@@ -12,6 +12,8 @@ const methods = {
     PUT: 'PUT',
 };
 const url_dev = "http://169.254.235.9:8000/"
+const url_prod = "https://daviwesleyvk.pythonanywhere.com/"
+
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
         let url = url_dev + endpoint;
