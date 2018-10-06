@@ -16,8 +16,29 @@ export class Cadastro extends React.Component {
     this.state = {
       nomeAluno:" ",
       matricula:" ",
-      disciplina:"",
+      disciplina:" ",
     }
+  }
+  cadastrar(){
+    let data = {
+      "course": this.state.disciplina,
+      "id_subscription": this.state.matricula,
+      "name": this.state.nomeAluno
+    }
+    const datajson = JSON.stringify(data);
+    fetch("http://169.254.235.9:8000/api/alunos",{
+      method:'POST',
+      headers:{
+        Authorization: "Token a167012bd6d0df32632084a15e81fee055f366e4",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:datajson
+    }).then(dados => dados.json()).then(dados => console.log(dados))
+    .catch(error => {
+      console.log(error)
+      Alert.alert(JSON.stringify(error))
+    });
   }
   render() {
       return (
@@ -45,15 +66,16 @@ export class Cadastro extends React.Component {
           />
           </View>
           <View style={{alignItems: 'center',}}>
-          <Text style={styles.headerText}>Disciplina</Text>
+          <Text style={styles.headerText}>Curso</Text>
           <TextInput placeholder="Digite a matricula do aluno"
                     style={styles.textInput}
-                    keyboardType='numeric'
-                    maxLength={6}
+                    // keyboardType='numeric'
+                    // maxLength={6}
+                    autoCapitalize="none"
                     onChangeText={text => this.setState({disciplina:text})}
           />
           </View>
-          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.nomeAluno, this.state.matricula) }
+          <Button title="Cadastrar" onPress={() => this.cadastrar() }
            accessibilityLabel="Cadastrar alunos"/>
         </ScrollView>
         </KeyboardAvoidingView>
@@ -68,13 +90,32 @@ export class CadastroProfessor extends React.Component {
       nome:" ",
     }
   }
+  cadastrar(){
+    let data = {     
+      "name": this.state.nome
+    }
+    const datajson = JSON.stringify(data);
+    fetch("http://169.254.235.9:8000/api/professores",{
+      method:'POST',
+      headers:{
+        Authorization: "Token a167012bd6d0df32632084a15e81fee055f366e4",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:datajson
+    }).then(dados => dados.json()).then(dados => console.log(dados))
+    .catch(error => {
+      console.log(error)
+      Alert.alert(JSON.stringify(error))
+    });
+  }
   render() {
       return (
         <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
         {/* <StatusBar backgroundColor='black'/> */}
           <View style={{alignItems: 'center',}}>
           <Text style={styles.headerText}>Nome do Professor</Text>
-          <TextInput placeholder="Digite o nome do aluno"
+          <TextInput placeholder="Digite o nome do professor"
                      style={styles.textInput}
                      autoCapitalize='words'
                      returnKeyType='next'
@@ -83,7 +124,7 @@ export class CadastroProfessor extends React.Component {
                      onChangeText={text => this.setState({nome:text})}
           />
           </View>
-          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.nome) }
+          <Button title="Cadastrar" onPress={() => this.cadastrar() }
            accessibilityLabel="Cadastrar alunos"/>
            
         </KeyboardAvoidingView>
@@ -101,10 +142,27 @@ export class LoginScreen extends React.Component {
   }
   componentWillMount(){
     // AsyncStorage.setItem('token', JSON.stringify(result.token));
+    // let data = {
+    //   "course": "ES",
+    //   "id_subscription": 873564,
+    //   "name": "Meus Ovos"
+    // }
+    // const datajson = JSON.stringify(data);
+    // fetch("http://169.254.235.9:8000/api/alunos",{
+    //   method:'POST',
+    //   headers:{
+    //     Authorization: "Token a167012bd6d0df32632084a15e81fee055f366e4",
+    //     Accept: 'application/json',
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body:datajson
+    // }).then(dados => dados.json()).then(dados => console.log(dados))
+    // .catch(error => console.log(error));
+
     AsyncStorage.getItem('token', (err, result) => {
       if(result !== null){
         // Alert.alert("Ja temos seu login")
-        Alert.alert(result)
+        // Alert.alert(result)
         this.props.navigation.push("Home")
       }else{
         Alert.alert(err,"Sem login")
@@ -163,11 +221,38 @@ export class CadastroDisciplina extends React.Component {
     super(props)
     this.state = {
       disciplina:" ",
+      lista:"",
+      horas:"",
+      creditos:"",
+      professor:[]
     }
+  }
+  cadastrar(){
+    let data = {     
+      "name": this.state.disciplina,
+      "hours": this.state.horas,
+      "credit": this.state.creditos,
+      "teacher": this.state.professor
+    }
+    const datajson = JSON.stringify(data);
+    fetch("http://169.254.235.9:8000/api/disciplinas",{
+      method:'POST',
+      headers:{
+        Authorization: "Token a167012bd6d0df32632084a15e81fee055f366e4",
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body:datajson
+    }).then(dados => dados.json()).then(dados => console.log(dados))
+    .catch(error => {
+      console.log(error)
+      Alert.alert(JSON.stringify(error))
+    });
   }
   render() {
       return (
         <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
+        <ScrollView>
         {/* <StatusBar backgroundColor='black'/> */}
           <View style={{alignItems: 'center',}}>
           <Text style={styles.headerText}>Nome da disciplina</Text>
@@ -180,9 +265,42 @@ export class CadastroDisciplina extends React.Component {
                      onChangeText={text => this.setState({disciplina:text})}
           />
           </View>
-          <Button title="Cadastrar" onPress={() => Alert.alert(this.state.disciplina) }
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Quantidade de horas</Text>
+          <TextInput placeholder="Digite o número de horas"
+                     style={styles.textInput}
+                     keyboardType='numeric'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({horas:text})}
+          />
+          </View>
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Quantidade de créditos</Text>
+          <TextInput placeholder="Digite o número de créditos"
+                     style={styles.textInput}
+                     keyboardType='numeric'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({creditos:text})}
+          />
+          </View>
+          <View style={{alignItems: 'center',}}>
+          <Text style={styles.headerText}>Nome do professor</Text>
+          <TextInput placeholder="Digite o nome do professor"
+                     style={styles.textInput}
+                     keyboardType='numeric'
+                     returnKeyType='next'
+                     //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+                     blurOnSubmit={false}
+                     onChangeText={text => this.setState({professor:text})}
+          />
+          </View>
+          <Button title="Cadastrar" onPress={() => this.cadastrar() }
            accessibilityLabel="Cadastrar disciplina"/>
-           
+        </ScrollView>
         </KeyboardAvoidingView>
       );
     }
