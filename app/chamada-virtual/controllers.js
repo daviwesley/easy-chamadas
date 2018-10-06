@@ -69,6 +69,15 @@ export const getToken = (nome, senha) => {
       username: nome,
       password: senha
     };
-  
     return request(methods.POST, 'api/api-token', { params: data });
 };
+
+export const criarAluno = (nome, matricula, curso, disciplina, token) => {
+    const data = {
+      name: nome,
+      id_subscription: matricula,
+      course: curso,
+      subject:[disciplina]
+    };
+    return request(methods.POST, 'api/alunos', { params: data, token });
+  };

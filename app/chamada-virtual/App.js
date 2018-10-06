@@ -106,25 +106,4 @@ const navBar = createStackNavigator({
   },
 });
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#e5e5e5"
-  },
-  textInput: {
-    height: 40, 
-    width: "95%", 
-    borderColor: 'black', 
-    borderRadius: 4,
-    borderWidth: 1,  
-    marginBottom: 20,
-    backgroundColor:'white',
-  },
-  headerText:{
-    fontSize: 15,
-    paddingTop: 5,
-  }
-});
 export default navBar

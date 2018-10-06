@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TextInput, KeyboardAvoidingView, Button, 
-StyleSheet, AsyncStorage, Alert } from 'react-native';
+StyleSheet, AsyncStorage, Alert, ScrollView } from 'react-native';
 
 import { getToken } from '../../controllers'
 
@@ -32,9 +32,10 @@ export class LoginScreen extends React.Component {
       }).catch( erro =>{
         if(erro.non_field_errors){
           Alert.alert("Erro", "Usuário ou senha incorretas")
+        }else if(erro.username || erro.password){
+          Alert.alert("Erro","Preencha todos os campos")
         }else{
-          Alert.alert("Erro", JSON.stringify(erro))
-          console.log(erro)
+          Alert.alert("Erro", "Sem conexão com a internet")
         }
       })
     }
@@ -42,6 +43,7 @@ export class LoginScreen extends React.Component {
         return (
           <KeyboardAvoidingView  behavior="padding" enabled={Platform.OS === 'ios'} >
           {/* <StatusBar backgroundColor='black'/> */}
+          <ScrollView>
             <View style={{alignItems: 'center',}}>
             <Text style={styles.headerText}>Nome do usuário</Text>
             <TextInput placeholder="Digite o nome da disciplina"
@@ -68,7 +70,7 @@ export class LoginScreen extends React.Component {
             </View>
             <Button title="Cadastrar" onPress={() =>  this.fazerLogin() }
              accessibilityLabel="Cadastrar disciplina"/>
-             
+          </ScrollView>
           </KeyboardAvoidingView>
         );
       }
