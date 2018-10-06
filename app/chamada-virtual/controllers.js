@@ -59,9 +59,6 @@ const request = (method, endpoint, options) => {
 };
 
 export const getAlunos = (token) => {
-    const params = {
-      pagination: true,
-    };
   
     return request(methods.GET, 'api/alunos', { token });
   };

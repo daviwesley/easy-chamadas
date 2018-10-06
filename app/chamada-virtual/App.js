@@ -197,16 +197,7 @@ export class CadastroDisciplina extends React.Component {
         disciplina : '',
         matricula: '',
         aluno:'',
-        apialunos:[{
-          "name": "Zoë Hange",
-          "id_subscription": 314685,
-          "course": "ES"
-          },
-          {
-          "name": "MIkasa Alckerman",
-          "id_subscription": 798564,
-          "course": "ES"
-          },],
+        apialunos:[],
         token:" "
       }
     }
@@ -217,7 +208,16 @@ export class CadastroDisciplina extends React.Component {
       //url = "https://daviwesleyvk.pythonanywhere.com/api/alunos";
       AsyncStorage.getItem('token', (err, result) =>{
         this.setState({token:result})
+        console.log("token dentro do Async",this.state.token)
       });
+      console.log("sem aspas", this.state.token.replace(/['"]+/g, ''))
+      getAlunos(this.state.token.replace(/['"]+/g, '')).then(dados =>{
+        this.setState({
+          apialunos:dados
+        })
+      }).catch(erro => {
+        console.log(erro)
+      })
     }
     render() {
         return (
