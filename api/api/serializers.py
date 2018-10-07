@@ -10,6 +10,7 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ('id','name', 'hours', 'credit', 'teacher',)
+        depth = 1
 
 class FaultSerializer(serializers.ModelSerializer):
     class Meta:
