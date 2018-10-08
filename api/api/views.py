@@ -34,7 +34,7 @@ class StudentSearchViewAPI(generics.ListAPIView):
         return Student.objects.filter(id_subscription=id)
 
 
-class StudentUpdateView(generics.UpdateAPIVIew):
+class StudentUpdateView(generics.UpdateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 
@@ -46,7 +46,7 @@ class TeacherViewAPI(generics.ListCreateAPIView):
     queryset = Teacher.objects.all()
 
 
-class TeacherUpdateView(generics.UpdateAPIVIew):
+class TeacherUpdateView(generics.UpdateAPIView):
     queryset = Teacher.objects.all()
     serializer_class = TeacherSerializer
 
@@ -57,7 +57,7 @@ class SubjectViewAPI(generics.ListCreateAPIView):
     permission_classes = (AllowAny,)
     
 
-class SubjectUpdateView(generics.UpdateAPIVIew):
+class SubjectUpdateView(generics.UpdateAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
     
