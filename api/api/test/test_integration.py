@@ -21,8 +21,9 @@ class TestAPIPost(TestCase):
         # Arrange
         url = '/api/alunos'
         data = {
-            "name": "Annie Leonheart",
+	        "name": "Annie Leonheart",
             "id_subscription": 432634,
+            "subject":[1],
             "course": "CC"
         }
         # Act
