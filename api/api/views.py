@@ -20,6 +20,12 @@ class FaultViewAPI(generics.ListCreateAPIView):
     queryset = Fault.objects.all()
     serializer_class = FaultSerializer
 
+
+class FaultViewUpdate(generics.UpdateAPIView):
+    queryset = Fault.objects.all()
+    serializer_class = FaultSerializer
+
+
 class StudentSearchViewAPI(generics.ListAPIView):
     serializer_class = StudentSerializer
 
@@ -27,14 +33,31 @@ class StudentSearchViewAPI(generics.ListAPIView):
         id = self.kwargs['id']
         return Student.objects.filter(id_subscription=id)
 
+
+class StudentUpdateView(generics.UpdateAPIVIew):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+
+
 class TeacherViewAPI(generics.ListCreateAPIView):
     #authentication_classes = (BasicAuthentication,)
     permission_classes = (IsAdminUser,)
     serializer_class = TeacherSerializer
     queryset = Teacher.objects.all()
 
+
+class TeacherUpdateView(generics.UpdateAPIVIew):
+    queryset = Teacher.objects.all()
+    serializer_class = TeacherSerializer
+
+ 
 class SubjectViewAPI(generics.ListCreateAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
     permission_classes = (AllowAny,)
+    
+
+class SubjectUpdateView(generics.UpdateAPIVIew):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
     
