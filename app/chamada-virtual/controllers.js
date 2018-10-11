@@ -81,5 +81,5 @@ export const criarAluno = (nome, matricula, curso, disciplina, token) => {
       course: curso,
       subject:[disciplina]
     };
-    return request(methods.POST, 'api/alunos', { params: data, token });
+    return request(methods.POST, 'api/alunos', { token, params:data });
   };
