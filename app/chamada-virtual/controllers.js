@@ -16,7 +16,7 @@ const url_prod = "https://daviwesleyvk.pythonanywhere.com/"
 
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = url_dev + endpoint;
+        let url = url_prod + endpoint;
 
         const headers = {
             Accept: 'application/json',
@@ -59,6 +59,25 @@ const request = (method, endpoint, options) => {
     });
 
     return result;
+};
+
+export const criarDisciplina = (nome, hora, credito, id_professor, token) => {
+  const data = {
+          "name": nome,
+          "hours": hora,
+          "credit": credito,
+          "teacher": [id_professor]
+        }
+  request(methods.POST, 'api/disciplinas', { token, params:data });
+}
+
+export const inserirFalta = (quantFaltas, matricula, disciplina, token) =>{
+  const data = {
+          "faults": quantFaltas,
+          "student": matricula,
+          "subject": disciplina
+        }
+  return request(methods.POST, 'api/faltas',{ token, params:data });
 };
 
 export const getAlunos = (token) => {
