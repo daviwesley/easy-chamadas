@@ -8,6 +8,7 @@ python:
 install:
   - pip install -r api/requirements.txt
   - nvm install 0.8.12
+  - npm install expo-cli --global
 
 script:
   - cd api
