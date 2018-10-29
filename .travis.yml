@@ -4,10 +4,10 @@ language: python
 
 python:
   - 3.6
-  
+
 install:
   - pip install -r api/requirements.txt
-  
+
 script:
   - cd api
   - python manage.py test api/test
