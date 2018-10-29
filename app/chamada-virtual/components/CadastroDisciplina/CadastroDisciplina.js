@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   View, Text, TextInput, KeyboardAvoidingView, Button,
-  StyleSheet, Platform, ScrollView, Platform
+  StyleSheet, Platform, ScrollView,
 } from 'react-native';
 
 export class CadastroDisciplina extends React.Component {
