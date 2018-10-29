@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, ScrollView, AsyncStorage } from 'react-native';
+import { ScrollView, AsyncStorage, StatusBar } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
 import { createStackNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
@@ -14,51 +14,52 @@ import { ChamadaScreen } from './components/Chamada/ChamadaScreen';
 //funções e variaveis
 
 class App extends React.Component {
-constructor(props){
-  super(props)
-  this.state = {
-    dados:''
+  constructor(props) {
+    super(props)
+    this.state = {
+      dados: ''
+    }
   }
-}
-sair(){
-  AsyncStorage.removeItem('token')
-  this.props.navigation.push("Login")
-}
-componentDidMount(){
-  
-}
-render() {
+  sair() {
+    AsyncStorage.removeItem('token')
+    this.props.navigation.push("Login")
+  }
+  componentDidMount() {
+
+  }
+  render() {
     return (
       <ScrollView>
-      <Grid>
-        <Col>
-          <Card title="Cadastrar Alunos">
-            <Icon size={70} name='group-add' 
-            onPress={() => this.props.navigation.navigate('CadastroAluno')} />
-          </Card>
-          <Card title="Cadastrar Disciplina">
-            <Icon size={70} name="school"
-            onPress={() => this.props.navigation.navigate("Disciplina")}
-            />
-          </Card>
-          <Card title={"Sair"} >
-            <Icon size={70} name="live-help"
-            // raised={true}
-            onPress={() => this.sair() }/>
-          </Card>
-        </Col>
-        <Col>
-          <Card title="Fazer Chamada">
-            <Icon size={70} name="check"
-            onPress={() => this.props.navigation.navigate('Chamada')}/>
-          </Card>
-          <Card title={"Cadastrar Professor"} >
-            <Icon size={70} name="account-circle"
-            // raised={true}
-            onPress={() => this.props.navigation.navigate("Professor")}/>
-          </Card>
-        </Col>
-      </Grid>
+        <Grid>
+          <Col>
+            <Card title="Cadastrar Alunos">
+              <Icon size={70} name='group-add'
+                onPress={() => this.props.navigation.navigate('CadastroAluno')} />
+            </Card>
+            <Card title="Cadastrar Disciplina">
+              <Icon size={70} name="school"
+                onPress={() => this.props.navigation.navigate("Disciplina")}
+              />
+            </Card>
+            <Card title={"Sair"} >
+              <Icon size={70} name="live-help"
+                // raised={true}
+                onPress={() => this.sair()} />
+            </Card>
+          </Col>
+          <Col>
+            <Card title="Fazer Chamada">
+              <Icon size={70} name="check"
+                onPress={() => this.props.navigation.navigate('Chamada')} />
+            </Card>
+            <Card title={"Cadastrar Professor"} >
+              <Icon size={70} name="account-circle"
+                // raised={true}
+                onPress={() => this.props.navigation.navigate("Professor")} />
+            </Card>
+          </Col>
+        </Grid>
+      <StatusBar backgroundColor="blue"/>
       </ScrollView>
     );
   }
