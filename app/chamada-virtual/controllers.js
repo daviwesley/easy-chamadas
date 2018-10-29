@@ -11,12 +11,12 @@ const methods = {
     POST: 'POST',
     PUT: 'PUT',
 };
-const url_dev = "http://169.254.235.9:8000/"
+const url_dev = "http://10.42.0.1:8000/"
 const url_prod = "https://daviwesleyvk.pythonanywhere.com/"
 
 const request = (method, endpoint, options) => {
     const result = new Promise((resolve, reject) => {
-        let url = url_prod + endpoint;
+        let url = url_dev + endpoint;
 
         const headers = {
             Accept: 'application/json',
@@ -61,44 +61,48 @@ const request = (method, endpoint, options) => {
     return result;
 };
 
-export const criarDisciplina = (nome, hora, credito, id_professor, token) => {
-  const data = {
-          "name": nome,
-          "hours": hora,
-          "credit": credito,
-          "teacher": [id_professor]
-        }
-  request(methods.POST, 'api/disciplinas', { token, params:data });
+export const returnToken = () => {
+    return AsyncStorage.getItem('token')
 }
 
-export const inserirFalta = (quantFaltas, matricula, disciplina, token) =>{
-  const data = {
-          "faults": quantFaltas,
-          "student": matricula,
-          "subject": disciplina
-        }
-  return request(methods.POST, 'api/faltas',{ token, params:data });
+export const criarDisciplina = (nome, hora, credito, id_professor, token) => {
+    const data = {
+        "name": nome,
+        "hours": hora,
+        "credit": credito,
+        "teacher": [id_professor]
+    }
+    request(methods.POST, 'api/disciplinas', { token, params: data });
+}
+
+export const inserirFalta = (quantFaltas, matricula, disciplina, token) => {
+    const data = {
+        "faults": quantFaltas,
+        "student": matricula,
+        "subject": disciplina
+    }
+    return request(methods.POST, 'api/faltas', { token, params: data });
 };
 
 export const getAlunos = (token) => {
-  
+
     return request(methods.GET, 'api/alunos', { token });
-  };
+};
 
 export const getToken = (nome, senha) => {
     const data = {
-      username: nome,
-      password: senha
+        username: nome,
+        password: senha
     };
     return request(methods.POST, 'api/api-token', { params: data });
 };
 
 export const criarAluno = (nome, matricula, curso, disciplina, token) => {
     const data = {
-      name: nome,
-      id_subscription: matricula,
-      course: curso,
-      subject:[disciplina]
+        name: nome,
+        id_subscription: matricula,
+        course: curso,
+        subject: [disciplina]
     };
-    return request(methods.POST, 'api/alunos', { token, params:data });
-  };
+    return request(methods.POST, 'api/alunos', { token, params: data });
+};
