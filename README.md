@@ -14,13 +14,15 @@ Aplicativo para realizar chamadas de alunos
 * depois <code>cd easy-chamadas/api</code>
 * <code>pip install -r requeriments.txt</code>
 * <code>pyton manage.py migrate</code>
-* opcionalmente podes criar um admin com o seguinte comando <code>python manage.py createsuperuser</code>
+* crie um admin com o seguinte comando <code>python manage.py createsuperuser</code>
+* no terminal execute `python manage.py runserver 0.0.0.0:8000`
 
 **Passos para a execução do Aplicativo**
 
 * Instale o NodeJS
 * instale a ferramenta Expo, execute na linha de comando <code>npm install expo-cli --global</code>
-* dentro da pasta `easy-chamadas/app` execute o seguinte comando <code>npm start start</code> ou <code> yarn</code>
+* dentro da pasta `easy-chamadas/app` execute o seguinte comando <code>npm install</code> ou <code> yarn</code>
+* no arquivo `easy-chamadas/app/chamada-virtual/controllers.js` modifique o valor da  variável `url_dev` para o ip da sua máquina
 * dentro da pasta `easy-chamadas/app` execute o seguinte comando <code>expo start</code>
 * escolha o dispositivo de sua preferência emulador ou smartphone, ambas as escolhas precisam do app Expo<br>
 instalado. <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&hl=pt_BR">Android</a> | <a href="https://itunes.apple.com/us/app/expo-client/id982107779?mt=8">iOS</a>
