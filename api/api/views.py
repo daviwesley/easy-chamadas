@@ -5,7 +5,8 @@ from rest_framework.authentication import (SessionAuthentication,
 from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .serializers import (StudentSerializer, FaultSerializer,
-                          TeacherSerializer, SubjectSerializer)
+                          TeacherSerializer, SubjectSerializer,
+                          FaultListSerializer)
 from .models import Student, Fault, Teacher, Subject
 
 # Create your views here.
@@ -22,7 +23,7 @@ class FaultViewAPI(generics.ListCreateAPIView):
                               TokenAuthentication)
     # permission_classes = (IsAuthenticated,)
     queryset = Fault.objects.all()
-    serializer_class = FaultSerializer
+    serializer_class = FaultListSerializer
 
 
 class FaultViewUpdate(generics.UpdateAPIView):
