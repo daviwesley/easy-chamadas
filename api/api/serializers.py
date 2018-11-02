@@ -6,7 +6,7 @@ class StudentSerializer(serializers.ModelSerializer):
     """ Seriazlize Student model."""
     class Meta:
         model = Student
-        fields = ('name', 'id_subscription', 'course', 'subject')
+        fields = ('name', 'id_subscription', 'course',)
 
 
 class SubjectSerializer(serializers.ModelSerializer):
@@ -17,8 +17,23 @@ class SubjectSerializer(serializers.ModelSerializer):
         depth = 1
 
 
+class SubjectSimpleSerializer(serializers.ModelSerializer):
+    """Show only the subject's name"""
+    class Meta:
+        model = Subject
+        fields = ('name',)
+
 class FaultSerializer(serializers.ModelSerializer):
     """ Serialize Fault model."""
+    class Meta:
+        model = Fault
+        fields = ('id', 'faults', 'student', 'subject', 'day')
+
+
+class FaultListSerializer(serializers.ModelSerializer):
+    """Serialize a list of faults"""
+    student = StudentSerializer()
+    subject = SubjectSimpleSerializer()
     class Meta:
         model = Fault
         fields = ('id', 'faults', 'student', 'subject', 'day')
