@@ -32,21 +32,12 @@ class Subject(models.Model):
         return self.name
 
 
-class Course(models.Model):
-    COURSES = (('ES', 'Engenharia de Software'),
-               ('CC', 'Ciências da Computação'),
-               ('EP', 'Engenharia da Produção'),
-               ('EC', 'Engenharia Civil'),
-               ('EM', 'Engenharia Mecânica'),)
-    name = models.CharField(max_length=30, choices=COURSES)
-
-
 class Student(models.Model):
-    COURSES = (('ES', 'Engenharia de Software'),
-               ('CC', 'Ciências da Computação'),
-               ('EP', 'Engenharia da Produção'),
-               ('EC', 'Engenharia Civil'),
-               ('EM', 'Engenharia Mecânica'),)
+    COURSES = (('Engenharia de Software', 'Engenharia de Software'),
+               ('Ciências da Computação', 'Ciências da Computação'),
+               ('Engenharia da Produção', 'Engenharia da Produção'),
+               ('Engenharia Civil', 'Engenharia Civil'),
+               ('Engenharia Mecânica', 'Engenharia Mecânica'),)
 
     name = models.CharField(max_length=55, verbose_name='nome')
     id_subscription = models.IntegerField(primary_key=True,
