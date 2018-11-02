@@ -20,9 +20,10 @@ class Teacher(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=40, verbose_name='nome')
-    hours = models.IntegerField(verbose_name='horas')
+    hours = models.IntegerField(verbose_name='horas', default=64)
     credit = models.IntegerField(verbose_name='creditos', default=4)
-    teacher = models.ManyToManyField('Teacher')
+    teacher = models.ForeignKey("Teacher", on_delete=models.CASCADE,
+                                verbose_name="Professor")
 
     class Meta:
         verbose_name = 'Disciplina'
@@ -50,8 +51,8 @@ class Student(models.Model):
     name = models.CharField(max_length=55, verbose_name='nome')
     id_subscription = models.IntegerField(primary_key=True,
                                           verbose_name='matricula')
-    subject = models.ManyToManyField(Subject, related_name='rel_student')
-    course = models.CharField(max_length=30, choices=COURSES)
+    course = models.CharField(max_length=30, choices=COURSES,
+                              verbose_name="Curso")
 
     class Meta:
         verbose_name = 'Aluno'
