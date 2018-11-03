@@ -39,6 +39,14 @@ class StudentSearchViewAPI(generics.ListAPIView):
         return Student.objects.filter(id_subscription=id)
 
 
+class StudentSearchNameViewAPI(generics.ListAPIView):
+    serializer_class = StudentSerializer
+
+    def get_queryset(self):
+        word = self.kwargs['name']
+        return Student.objects.filter(name__startswith=word)
+
+
 class StudentUpdateView(generics.UpdateAPIView):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
