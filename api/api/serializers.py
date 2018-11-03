@@ -14,7 +14,8 @@ class StudentSimpleSerializer(serializers.ModelSerializer):
     """ Serialize only student's name """
     class Meta:
         model = Student
-        fields =('name',)
+        fields = ('name',)
+
 
 class SubjectSerializer(serializers.ModelSerializer):
     """ Serialize Subject model."""
@@ -29,6 +30,7 @@ class SubjectSimpleSerializer(serializers.ModelSerializer):
         model = Subject
         fields = ('name', 'pk',)
 
+
 class FaultSerializer(serializers.ModelSerializer):
     """ Serialize Fault model."""
     class Meta:
@@ -40,6 +42,7 @@ class FaultListSerializer(serializers.ModelSerializer):
     """Serialize a list of faults"""
     student = StudentSimpleSerializer()
     subject = SubjectSimpleSerializer()
+
     class Meta:
         model = Fault
         fields = ('id', 'faults', 'student', 'subject', 'day')
@@ -53,7 +56,6 @@ class FaultListSerializer(serializers.ModelSerializer):
         falta = Fault.objects.create(faults=validated_data['faults'], student=student,
                                      subject=subject)
         return falta
-
 
 
 class FaltaSerializer(WritableNestedModelSerializer):
