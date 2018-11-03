@@ -73,7 +73,7 @@ class Fault(models.Model):
         verbose_name = 'Falta'
 
     def __str__(self):
-        return self.student.name
+        return "{} - {}".format(self.student.name, self.subject.name)
 
 
 # cria um token quando um usuário é criado
