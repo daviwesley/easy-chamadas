@@ -14,7 +14,6 @@ class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
         fields = ('id', 'name', 'hours', 'credit', 'teacher',)
-        depth = 1
 
 
 class SubjectSimpleSerializer(serializers.ModelSerializer):
@@ -38,6 +37,9 @@ class FaultListSerializer(serializers.ModelSerializer):
         model = Fault
         fields = ('id', 'faults', 'student', 'subject', 'day')
 
+    def create(self, validated_data):
+        # TODO
+        pass
 
 class TeacherSerializer(serializers.ModelSerializer):
     """ Serialize Teacher model."""
