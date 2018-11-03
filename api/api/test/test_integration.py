@@ -29,8 +29,7 @@ class TestAPIPost(TestCase):
         data = {
             "name": "Annie Leonheart",
             "id_subscription": 432634,
-            "subject": [1],  # you have to specify a subject id
-            "course": "CC"
+            "course": "Engenharia de Software"
         }
         # Act
         response = self.client.post(url, data, format='json')
@@ -56,11 +55,7 @@ class TestAPIPost(TestCase):
         url = '/api/disciplinas'
         data = {
             "name": "Fundamentos de Programação",
-            "hours": 64,
-            "credit": 4,
-            "teacher": [
-                1
-            ]
+            "teacher": 1
         }
         # Act
         response = self.client.post(url, data, format='json')
