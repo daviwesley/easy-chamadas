@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'rest_framework.authtoken',
+    'rest_framework_swagger',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +79,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     )
-} 
+}
 
 FIXTURE_DIRS = 'fixtures'
 
@@ -139,4 +141,4 @@ MEDIA_ROOT = u'/home/daviwesleyvk/easy-chamadas/media'
 MEDIA_URL = '/media/'
 STATIC_ROOT = u'/home/daviwesleyvk/easy-chamadas/static'
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
