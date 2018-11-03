@@ -81,8 +81,8 @@ class TestAPIPost(TestCase):
         url = '/api/faltas'
         data = {
             "faults": 2,
-            "student": 381097,
-            "subject": 1
+            "student": {"name":"Eren Yager"},
+            "subject": {"name":"Estrutura de Dados"}
         }
         # Act
         response = self.client.post(url, data, format='json')

@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .serializers import (StudentSerializer, FaultSerializer,
                           TeacherSerializer, SubjectSerializer,
-                          FaultListSerializer)
+                          FaultListSerializer, FaltaSerializer)
 from .models import Student, Fault, Teacher, Subject
 
 # Create your views here.
@@ -17,7 +17,7 @@ class StudentViewAPI(generics.ListCreateAPIView):
     serializer_class = StudentSerializer
 
 
-class FaultViewAPI(generics.ListAPIView):
+class FaultViewAPI(generics.ListCreateAPIView):
     # somente usuarios com o token podem acessar
     authentication_classes = (SessionAuthentication, BasicAuthentication,
                               TokenAuthentication)
