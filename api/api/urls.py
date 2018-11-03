@@ -3,7 +3,9 @@ from .views import (StudentViewAPI, FaultViewAPI, StudentSearchViewAPI,
                     TeacherViewAPI, SubjectViewAPI, SubjectUpdateView,
                     TeacherUpdateView, StudentUpdateView, FaultViewUpdate)
 from rest_framework.authtoken import views
+from rest_framework_swagger.views import get_swagger_view
 
+schema_view = get_swagger_view('Documentação da API')
 urlpatterns = [
     # Students
     path('alunos', StudentViewAPI.as_view(), name='alunos'),
@@ -21,4 +23,6 @@ urlpatterns = [
     path('faltas/<int:pk>', FaultViewUpdate.as_view()),
     # Authentication
     path('api-token', views.obtain_auth_token, name="tokenapi"),
+      # api docs
+    path('docs', schema_view),
 ]
