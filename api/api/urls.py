@@ -1,7 +1,8 @@
 from django.urls import path
 from .views import (StudentViewAPI, FaultViewAPI, StudentSearchViewAPI,
                     TeacherViewAPI, SubjectViewAPI, SubjectUpdateView,
-                    TeacherUpdateView, StudentUpdateView, FaultViewUpdate)
+                    TeacherUpdateView, StudentUpdateView, FaultViewUpdate,
+                    StudentSearchNameViewAPI)
 from rest_framework.authtoken import views
 from rest_framework_swagger.views import get_swagger_view
 
@@ -12,6 +13,7 @@ urlpatterns = [
     path('alunos/update/<int:pk>', StudentUpdateView.as_view()),
     path('alunos/<int:id>', StudentSearchViewAPI.as_view(),
          name='procura_aluno'),
+    path('alunos/<str:name>', StudentSearchNameViewAPI.as_view()),
     # Subjects
     path('disciplinas', SubjectViewAPI.as_view()),
     path('disciplinas/<int:pk>', SubjectUpdateView.as_view()),
