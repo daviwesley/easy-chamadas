@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScrollView, AsyncStorage, StatusBar } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
-import { createStackNavigator } from 'react-navigation';
+import { createStackNavigator, createSwitchNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
 
 //telas
@@ -10,7 +10,7 @@ import { LoginScreen } from './components/Login/LoginScreen'
 import { CadastroDisciplina } from './components/CadastroDisciplina/CadastroDisciplina'
 import { CadastroAluno } from './components/CadastroAluno/CadastroAluno';
 import { ChamadaScreen } from './components/Chamada/ChamadaScreen';
-
+import { LoadingScreen } from './components/LoadingScreen';
 //funções e variaveis
 
 class App extends React.Component {
@@ -22,10 +22,11 @@ class App extends React.Component {
   }
   sair() {
     AsyncStorage.removeItem('token')
-    this.props.navigation.push("Login")
+    this.props.navigation.navigate("Auth")
   }
-  componentDidMount() {
 
+  componentDidMount() {
+	console.log("componente montado")
   }
   render() {
     return (
@@ -64,15 +65,11 @@ class App extends React.Component {
     );
   }
 }
+const AuthStack = createStackNavigator({
+	SignIn: LoginScreen
+})
 
 const navBar = createStackNavigator({
-  Login: {
-    screen: LoginScreen,
-    navigationOptions: {
-      title: 'Login',
-      headerLeft: null,
-    }
-  },
   Home: {
     screen: App,
     headerLeft: null,
@@ -107,4 +104,8 @@ const navBar = createStackNavigator({
   },
 });
 
-export default navBar
+export default createSwitchNavigator({
+	Loading: LoadingScreen,
+	App: navBar,
+	Auth: AuthStack
+})

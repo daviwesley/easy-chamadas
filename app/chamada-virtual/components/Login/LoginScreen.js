@@ -7,6 +7,9 @@ import {
 import { getToken } from '../../controllers'
 
 export class LoginScreen extends React.Component {
+	static navigationOptions = {
+		title: 'Login',
+	};
   constructor(props) {
     super(props)
     this.state = {
@@ -30,7 +33,7 @@ export class LoginScreen extends React.Component {
     getToken(this.state.usuario, this.state.senha)
       .then(result => {
         AsyncStorage.setItem('token', JSON.stringify(result.token));
-        this.props.navigation.push("Home")
+        this.props.navigation.navigate("Home")
       }).catch(erro => {
         if (erro.non_field_errors) {
           Alert.alert("Erro", "Usuário ou senha incorretas")
@@ -50,28 +53,30 @@ export class LoginScreen extends React.Component {
             <Text style={styles.headerText}>Nome do usuário</Text>
             <TextInput placeholder="Digite o nome da disciplina"
               style={styles.textInput}
-              autoCapitalize="none"
+			  autoCapitalize="none"
+			  autoCorrect={false}
               value={this.props.usuario}
               returnKeyType='next'
-              //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+              onSubmitEditing={() => { this.secondTextInput.focus(); }}
               blurOnSubmit={false}
               onChangeText={text => this.setState({ usuario: text })}
             />
             <Text style={styles.headerText}>Senha</Text>
-            <TextInput placeholder="Digite a senha do usuário"
+			<TextInput placeholder="Digite a senha do usuário"
+			  ref={el => this.secondTextInput = el}
               style={styles.textInput}
               autoCapitalize="none"
               value={this.props.senha}
               secureTextEntry={true}
               password={true}
-              returnKeyType='next'
+              returnKeyType='send'
               //onSubmitEditing={() => { this.secondTextInput.focus(); }}
               blurOnSubmit={false}
               onChangeText={text => this.setState({ senha: text })}
             />
           </View>
-          <Button title="Cadastrar" onPress={() => this.fazerLogin()}
-            accessibilityLabel="Cadastrar disciplina" />
+          <Button title="Entrar" onPress={() => this.fazerLogin()}
+            accessibilityLabel="Entrar" />
         </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -93,5 +98,6 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   }
 });
+
 
 export default LoginScreen;
