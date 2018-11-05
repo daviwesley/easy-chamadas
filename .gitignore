@@ -109,3 +109,5 @@ node_modules
 # VS Code
 .vscode
 .vscode/settings.json
+api/.vscode/settings.json
+api/.vscode
