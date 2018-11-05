@@ -4,7 +4,7 @@ import {
   StyleSheet, AsyncStorage, Alert, ScrollView, Platform
 } from 'react-native';
 
-import { getToken } from '../../controllers'
+import { fazerLogin } from '../../controllers'
 
 export class LoginScreen extends React.Component {
 	static navigationOptions = {
@@ -30,7 +30,7 @@ export class LoginScreen extends React.Component {
   }
   fazerLogin() {
     //Alert.alert(this.state.usuario, this.state.senha)
-    getToken(this.state.usuario, this.state.senha)
+    fazerLogin(this.state.usuario, this.state.senha)
       .then(result => {
         AsyncStorage.setItem('token', JSON.stringify(result.token));
         this.props.navigation.navigate("Home")
@@ -70,9 +70,9 @@ export class LoginScreen extends React.Component {
               secureTextEntry={true}
               password={true}
               returnKeyType='send'
-              //onSubmitEditing={() => { this.secondTextInput.focus(); }}
+              onSubmitEditing={() => {this.fazerLogin()}}
               blurOnSubmit={false}
-              onChangeText={text => this.setState({ senha: text })}
+			  onChangeText={text => this.setState({ senha: text })}
             />
           </View>
           <Button title="Entrar" onPress={() => this.fazerLogin()}
