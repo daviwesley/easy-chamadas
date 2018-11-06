@@ -76,6 +76,20 @@ class Fault(models.Model):
         return "{} - {}".format(self.student.name, self.subject.name)
 
 
+class Attendance(models.Model):
+    student = models.ForeignKey('Student', on_delete=models.CASCADE,
+                                verbose_name='Aluno')
+    day = models.DateField(auto_now=True, verbose_name="Data")
+    subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Presença'
+
+    def __str__(self):
+        return '{} - {} /{}'.format(self.student.name, self.subject.name,
+                                    self.day)
+
+
 # cria um token quando um usuário é criado
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
