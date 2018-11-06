@@ -6,7 +6,7 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .serializers import (StudentSerializer, FaultSerializer,
                           TeacherSerializer, SubjectSerializer,
-                          FaultListSerializer, FaltaSerializer, AttendanceSerializer)
+                          FaultListSerializer, AttendanceSerializer)
 from .models import Student, Fault, Teacher, Subject, Attendance
 
 # Create your views here.
