@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   KeyboardAvoidingView,
-  StyleSheet, ScrollView, AsyncStorage, Platform
+  StyleSheet, ScrollView, AsyncStorage, Platform, Alert
 } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
