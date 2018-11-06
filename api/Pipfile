@@ -23,7 +23,6 @@ six = "==1.11.0"
 typed-ast = "==1.1.0"
 wrapt = "==1.10.11"
 django-rest-swagger = "*"
-drf-writable-nested = "*"
 
 
 [requires]
