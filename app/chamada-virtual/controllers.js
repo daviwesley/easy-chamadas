@@ -64,9 +64,8 @@ const request = (method, endpoint, options) => {
 
 // retorna o token que está gravado na memória do celular
 export const getDBToken = () => {
-	return AsyncStorage.getItem('token')
+	AsyncStorage.getItem('token')
 }
-
 // CHAMADAS
 export const inserirPresenca = (matricula, disciplina, token) => {
  const data = {
@@ -98,7 +97,7 @@ export const inserirAluno = (nome, matricula, curso, disciplina, token) => {
 		course: curso,
 		subject: disciplina
 	};
-	return request(methods.POST, 'api/alunos', { token, params: data });
+	return request(methods.POST, 'api/alunos', { params: data, token });
 }
 
 export const removerAluno = (matricula) => {
