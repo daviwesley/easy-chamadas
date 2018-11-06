@@ -87,6 +87,7 @@ export class LoginScreen extends React.Component {
 						fontSize={15}
 						containerViewStyle={styles.buttonContainer}
 						/>
+
 				</KeyboardAvoidingView>
 			</ScrollView>
 		);
@@ -95,14 +96,14 @@ export class LoginScreen extends React.Component {
 
 const styles = StyleSheet.create({
 	textInput: {
-		color:'#000000',
+		color:'black',
 		height: 43,
 		fontSize:15,
 		width: "100%",
 		borderColor: 'black',
 		borderRadius: 4,
 		borderWidth: 1,
-		marginBottom: 1,
+		marginBottom: 3,
 		backgroundColor: 'white',
 	},
 	headerText: {
@@ -112,18 +113,16 @@ const styles = StyleSheet.create({
 	},
 	container:{
 		flex:1,
-		justifyContent:'center'
 	},
 	formInputContainer: {
 		marginLeft:2,
 		marginRight:2,
-		borderBottomColor: 'black',
-  	borderBottomWidth: 0,
+		borderBottomColor:'black'
 	},
 	buttonContainer:{
 		marginLeft:2,
 		marginRight:2,
-		paddingTop:5
+		paddingTop:3
 	},
 	buttonStyle:{
 		backgroundColor:'black',
