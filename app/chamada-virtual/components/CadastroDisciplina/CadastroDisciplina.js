@@ -1,8 +1,10 @@
 import React from 'react';
 import {
-  View, Text, TextInput, KeyboardAvoidingView, Button,
+  View, Text, TextInput, KeyboardAvoidingView,
   StyleSheet, Platform, ScrollView,
 } from 'react-native';
+
+import { Button } from 'react-native-elements';
 
 export class CadastroDisciplina extends React.Component {
   constructor(props) {
@@ -42,7 +44,7 @@ export class CadastroDisciplina extends React.Component {
       <KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} >
         <ScrollView>
           {/* <StatusBar backgroundColor='black'/> */}
-          <View style={{ alignItems: 'center', }}>
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Nome da disciplina</Text>
             <TextInput placeholder="Digite o nome da disciplina"
               style={styles.textInput}
@@ -53,10 +55,11 @@ export class CadastroDisciplina extends React.Component {
               onChangeText={text => this.setState({ disciplina: text })}
             />
           </View>
-          <View style={{ alignItems: 'center', }}>
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Quantidade de horas</Text>
             <TextInput placeholder="Digite o número de horas"
-              style={styles.textInput}
+							style={styles.textInput}
+							clearButtonMode='always'
               keyboardType='numeric'
               returnKeyType='next'
               //onSubmitEditing={() => { this.secondTextInput.focus(); }}
@@ -64,7 +67,7 @@ export class CadastroDisciplina extends React.Component {
               onChangeText={text => this.setState({ horas: text })}
             />
           </View>
-          <View style={{ alignItems: 'center', }}>
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Quantidade de créditos</Text>
             <TextInput placeholder="Digite o número de créditos"
               style={styles.textInput}
@@ -75,7 +78,7 @@ export class CadastroDisciplina extends React.Component {
               onChangeText={text => this.setState({ creditos: text })}
             />
           </View>
-          <View style={{ alignItems: 'center', }}>
+          <View style={styles.textContainer}>
             <Text style={styles.headerText}>Nome do professor</Text>
             <TextInput placeholder="Digite o nome do professor"
               style={styles.textInput}
@@ -86,8 +89,12 @@ export class CadastroDisciplina extends React.Component {
               onChangeText={text => this.setState({ professor: text })}
             />
           </View>
-          <Button title="Cadastrar" onPress={() => this.cadastrar()}
-            accessibilityLabel="Cadastrar disciplina" />
+          <Button title="Cadastrar Disciplina" onPress={() => this.cadastrar()}
+						accessibilityLabel="Cadastrar Disciplina"
+						buttonStyle={styles.buttonStyle}
+						fontSize={15}
+						containerViewStyle={styles.buttonContainer}
+						/>
         </ScrollView>
       </KeyboardAvoidingView>
     );
@@ -96,19 +103,45 @@ export class CadastroDisciplina extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#e5e5e5"
+	},
+	textContainer: {
+		marginLeft:2,
+		marginRight:2,
+		alignItems:'center'
+	},
   textInput: {
-    height: 40,
-    width: "95%",
-    borderColor: 'black',
-    borderRadius: 4,
-    borderWidth: 1,
-    marginBottom: 20,
-    backgroundColor: 'white',
-  },
+		color:'black',
+		height: 43,
+		fontSize:15,
+		width: "100%",
+		borderColor: 'black',
+		borderRadius: 4,
+		borderWidth: 1,
+		marginBottom: 3,
+		backgroundColor: 'white',
+	},
   headerText: {
     fontSize: 15,
     paddingTop: 5,
-  }
+	},
+	buttonContainer:{
+		marginLeft:2,
+		marginRight:2,
+		paddingTop:3
+	},
+	buttonStyle:{
+		backgroundColor:'black',
+		borderRadius:4,
+	},
+	formInputContainer: {
+		marginLeft:2,
+		marginRight:2,
+		borderBottomColor:'black'
+	},
 });
-
 export default CadastroDisciplina;
