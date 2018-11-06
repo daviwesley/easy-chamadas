@@ -6,8 +6,8 @@ from rest_framework.permissions import AllowAny, IsAdminUser
 
 from .serializers import (StudentSerializer, FaultSerializer,
                           TeacherSerializer, SubjectSerializer,
-                          FaultListSerializer, FaltaSerializer)
-from .models import Student, Fault, Teacher, Subject
+                          FaultListSerializer, FaltaSerializer, AttendanceSerializer)
+from .models import Student, Fault, Teacher, Subject, Attendance
 
 # Create your views here.
 
@@ -41,10 +41,9 @@ class StudentSearchViewAPI(generics.ListAPIView):
 
 class StudentSearchNameViewAPI(generics.ListAPIView):
     serializer_class = StudentSerializer
-
     def get_queryset(self):
         word = self.kwargs['name']
-        return Student.objects.filter(name__startswith=word)
+        return Student.objects.filter(name__contains=word)
 
 
 class StudentUpdateView(generics.UpdateAPIView):
@@ -67,9 +66,22 @@ class TeacherUpdateView(generics.UpdateAPIView):
 class SubjectViewAPI(generics.ListCreateAPIView):
     serializer_class = SubjectSerializer
     queryset = Subject.objects.all()
-    permission_classes = (AllowAny,)
-
+    authentication_classes = (SessionAuthentication, BasicAuthentication,
+                              TokenAuthentication)
 
 class SubjectUpdateView(generics.UpdateAPIView):
     queryset = Subject.objects.all()
     serializer_class = SubjectSerializer
+
+
+class SubjectSearchView(generics.ListAPIView):
+    serializer_class = SubjectSerializer
+
+    def get_queryset(self):
+        word = self.kwargs['disciplina']
+        return Subject.objects.filter(name__contains=word)
+
+
+class AttendanceView(generics.ListCreateAPIView):
+    queryset = Attendance.objects.all()
+    serializer_class = AttendanceSerializer
