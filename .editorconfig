@@ -22,7 +22,8 @@ space_after_anonymous_functions = true;
 space_after_control_statements = true;
 spaces_around_operators = true;
 trim_trailing_whitespace = true;
-spaces_in_brackets = false;
+spaces_in_brackets = true;
+indent_size = 2
 
 [*.yml]
 indent_size = 2
