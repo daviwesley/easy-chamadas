@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Student, Subject, Fault, Teacher, Attendance
-from drf_writable_nested import WritableNestedModelSerializer
+
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -72,15 +72,6 @@ class FaultListSerializer(serializers.ModelSerializer):
         falta = Fault.objects.create(faults=validated_data['faults'], student=student,
                                      subject=subject)
         return falta
-
-
-class FaltaSerializer(WritableNestedModelSerializer):
-    student = StudentSimpleSerializer(many=False)
-    subject = SubjectSimpleSerializer(many=False)
-
-    class Meta:
-        model = Fault
-        fields = ('id', 'faults', 'student', 'subject',)
 
 
 class AttendanceSerializer(serializers.ModelSerializer):
