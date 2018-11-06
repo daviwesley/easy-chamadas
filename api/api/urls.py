@@ -2,9 +2,10 @@ from django.urls import path
 from .views import (StudentViewAPI, FaultViewAPI, StudentSearchViewAPI,
                     TeacherViewAPI, SubjectViewAPI, SubjectUpdateView,
                     TeacherUpdateView, StudentUpdateView, FaultViewUpdate,
-                    StudentSearchNameViewAPI)
+                    StudentSearchNameViewAPI, SubjectSearchView,AttendanceView)
 from rest_framework.authtoken import views
 from rest_framework_swagger.views import get_swagger_view
+from django_extensions.management.commands import show_urls
 
 schema_view = get_swagger_view('Documentação da API')
 urlpatterns = [
@@ -17,6 +18,7 @@ urlpatterns = [
     # Subjects
     path('disciplinas', SubjectViewAPI.as_view()),
     path('disciplinas/<int:pk>', SubjectUpdateView.as_view()),
+    path('disciplinas/<str:disciplina>', SubjectSearchView.as_view()),
     # Teachers
     path('professores', TeacherViewAPI.as_view(), name='professores'),
     path('professores/<int:pk>', TeacherUpdateView.as_view()),
@@ -25,6 +27,8 @@ urlpatterns = [
     path('faltas/<int:pk>', FaultViewUpdate.as_view()),
     # Authentication
     path('api-token', views.obtain_auth_token, name="tokenapi"),
-      # api docs
+    # api docs
     path('docs', schema_view),
+    # Attendances
+    path('presencas', AttendanceView.as_view()),
 ]
