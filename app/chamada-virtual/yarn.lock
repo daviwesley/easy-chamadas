@@ -3236,6 +3236,13 @@ hoist-non-react-statics@^3.0.0:
   dependencies:
     react-is "^16.3.2"
 
+hoist-non-react-statics@^3.0.1:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-3.1.0.tgz#42414ccdfff019cd2168168be998c7b3bd5245c0"
+  integrity sha512-MYcYuROh7SBM69xHGqXEwQqDux34s9tz+sCnxJmN18kgWh6JFdTw/5YdZtqsOdZJXddE/wUpCzfEdDrJj8p0Iw==
+  dependencies:
+    react-is "^16.3.2"
+
 home-or-tmp@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/home-or-tmp/-/home-or-tmp-2.0.0.tgz#e36c3f2d2cae7d746a857e38d18d5f32a7882db8"
@@ -5597,6 +5604,13 @@ react-navigation-stack@0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/react-navigation-stack/-/react-navigation-stack-0.7.0.tgz#0b2f139ee1cba953037ef51353df992ec6c74fa2"
   integrity sha512-3Tbb/SsustBrM9R/qaI6XuOfyqYMVbwkeHFC8NbU890vB0aKZvjAtioWLZ18e/4LgbiOCmoTdp37z3gkGDyNDQ==
+
+react-navigation-switch-transitioner@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-navigation-switch-transitioner/-/react-navigation-switch-transitioner-0.0.8.tgz#c7290ba31eb6d746308fd0bf412388f871b33677"
+  integrity sha512-yYlp15UHmY5dpOaaeuq/pcn1CCuwWjQPuaXHDmaodCj/6rlsvvNGY3iCUwn+8836Y3Mj0loV9D4iiJskCs2X/Q==
+  dependencies:
+    hoist-non-react-statics "^3.0.1"
 
 react-navigation-tabs@0.8.2:
   version "0.8.2"
