@@ -36,7 +36,7 @@ class TestAPIPost(TestCase):
         # Assert
         self.assertEqual(response.status_code, 201)
 
-    def test_update_student(self):
+    def test_api_update_student(self):
         # Arrange
         self.test_api_create_student()  # it needs to create a student
         sub = 381097
@@ -54,15 +54,15 @@ class TestAPIPost(TestCase):
         # Arrange
         url = '/api/disciplinas'
         data = {
-            "name": "Fundamentos de Programação",
-            "teacher": 1
+            "name": "Teatro",
+            "teacher": {"name": "Rosalina Meireles"}
         }
         # Act
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 201)
 
-    def test_update_subject(self):
+    def test_api_update_subject(self):
         # Arrange
         self.test_api_create_subject()  # it needs to create a subject
         id = 1
@@ -76,22 +76,22 @@ class TestAPIPost(TestCase):
         # Assert
         self.assertEqual(response.status_code, 200)
 
-    def test_create_a_fault(self):
+    def test_api_create_a_fault(self):
         # Arrange
         url = '/api/faltas'
         data = {
             "faults": 2,
-            "student": {"name":"Eren Yager"},
-            "subject": {"name":"Estrutura de Dados"}
+            "student": {"name": "Eren Yager"},
+            "subject": {"name": "Estrutura de Dados"}
         }
         # Act
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 201)
 
-    def test_update_student_fault(self):
+    def test_api_update_student_fault(self):
         # Arrange
-        self.test_create_a_fault()  # it needs to create a fault before testing
+        self.test_api_create_a_fault()  # it needs to create a fault report before testing
         id = 1
         url = "/api/faltas/{}".format(id)
 
@@ -102,3 +102,26 @@ class TestAPIPost(TestCase):
         response = self.client.patch(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 200)
+
+    def test_api_create_teacher(self):
+        # Arrange
+        data = {
+            "name": "Armin Armlet"
+        }
+        url = '/api/professores'
+        # Act
+        response = self.client.post(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 201)
+
+    def test_api_create_attendance(self):
+        # Arrange
+        data = {
+            "student": "Eren Yager",
+            "subject": "Estrutura de Dados"
+        }
+        url = '/api/presencas'
+        # Act
+        response = self.client.post(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 201)
