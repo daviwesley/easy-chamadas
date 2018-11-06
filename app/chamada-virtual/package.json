@@ -17,6 +17,7 @@
     "react-native-easy-grid": "^0.2.0",
     "react-native-elements": "^0.19.1",
     "react-navigation": "^2.17.0",
+    "react-navigation-switch-transitioner": "^0.0.8",
     "react-redux": "^5.1.0",
     "redux": "^4.0.1"
   },
