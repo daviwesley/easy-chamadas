@@ -1,6 +1,13 @@
 from rest_framework import serializers
-from .models import Student, Subject, Fault, Teacher
+from .models import Student, Subject, Fault, Teacher, Attendance
 from drf_writable_nested import WritableNestedModelSerializer
+
+
+class TeacherSerializer(serializers.ModelSerializer):
+    """ Serialize Teacher model."""
+    class Meta:
+        model = Teacher
+        fields = ('id', 'name',)
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -19,9 +26,18 @@ class StudentSimpleSerializer(serializers.ModelSerializer):
 
 class SubjectSerializer(serializers.ModelSerializer):
     """ Serialize Subject model."""
+    teacher = TeacherSerializer()
+
     class Meta:
         model = Subject
         fields = ('id', 'name', 'hours', 'credit', 'teacher',)
+
+    def create(self, validated_data):
+        # TODO
+        name = validated_data.pop('teacher')
+        teacher, _ = Teacher.objects.get_or_create(name=name['name'])
+        subject = Subject.objects.create(name=validated_data['name'], teacher=teacher)
+        return subject
 
 
 class SubjectSimpleSerializer(serializers.ModelSerializer):
@@ -67,8 +83,18 @@ class FaltaSerializer(WritableNestedModelSerializer):
         fields = ('id', 'faults', 'student', 'subject',)
 
 
-class TeacherSerializer(serializers.ModelSerializer):
-    """ Serialize Teacher model."""
+class AttendanceSerializer(serializers.ModelSerializer):
+    student = serializers.CharField()
+    subject = serializers.CharField()
+
     class Meta:
-        model = Teacher
-        fields = ('id', 'name',)
+        model = Fault
+        fields = ('id', 'student', 'day', 'subject',)
+
+    def create(self, validated_data):
+        student, _ = Student.objects.get_or_create(name=validated_data['student'])
+        subject, _ = Subject.objects.get_or_create(name=validated_data['subject'])
+
+        attendance = Attendance.objects.create(student=student, subject=subject)
+
+        return attendance
