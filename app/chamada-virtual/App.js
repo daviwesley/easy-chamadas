@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView, AsyncStorage, StatusBar } from 'react-native';
+import { ScrollView, AsyncStorage, StatusBar, LayoutAnimation } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
 import {
 	createSwitchNavigator,
@@ -33,6 +33,7 @@ class App extends React.Component {
 	}
 
 	componentDidMount() {
+		LayoutAnimation.linear()
 		console.log("componente montado")
 	}
 	render() {
