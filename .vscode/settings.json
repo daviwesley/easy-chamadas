@@ -1,5 +1,5 @@
 {
     "python.linting.enabled": true,
-    "python.pythonPath": "/home/davi/.virtualenvs/api-1jIBHIsI/"
+    "python.pythonPath": "/home/davi/.virtualenvs/api-1jIBHIsI/bin/python"
     //"files.autoSave": "onFocusChange"
 }
