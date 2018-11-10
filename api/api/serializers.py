@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from .models import Student, Subject, Fault, Teacher, Attendance
-
+from rest_framework.fields import CurrentUserDefault
+from .models import Student, Subject, Fault, Teacher, Attendance, Turma, TesteUsuario
+from django.contrib.auth.models import User
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -8,6 +9,13 @@ class TeacherSerializer(serializers.ModelSerializer):
     class Meta:
         model = Teacher
         fields = ('id', 'name',)
+
+
+class TeacherSimpleSerializer(serializers.ModelSerializer):
+    """ Serialize only the name """
+    class Meta:
+        model = Teacher
+        fields = ('name',)
 
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -36,7 +44,8 @@ class SubjectSerializer(serializers.ModelSerializer):
         # TODO
         name = validated_data.pop('teacher')
         teacher, _ = Teacher.objects.get_or_create(name=name['name'])
-        subject = Subject.objects.create(name=validated_data['name'], teacher=teacher)
+        subject = Subject.objects.create(
+            name=validated_data['name'], teacher=teacher)
         return subject
 
 
@@ -65,6 +74,7 @@ class FaultListSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # TODO
+        # add error messages
         name = validated_data.pop('student')
         sub_name = validated_data.pop('subject')
         student, _ = Student.objects.get_or_create(name=name['name'])
@@ -83,9 +93,56 @@ class AttendanceSerializer(serializers.ModelSerializer):
         fields = ('id', 'student', 'day', 'subject',)
 
     def create(self, validated_data):
-        student, _ = Student.objects.get_or_create(name=validated_data['student'])
-        subject, _ = Subject.objects.get_or_create(name=validated_data['subject'])
+        student, _ = Student.objects.get_or_create(
+            name=validated_data['student'])
+        subject, _ = Subject.objects.get_or_create(
+            name=validated_data['subject'])
 
-        attendance = Attendance.objects.create(student=student, subject=subject)
+        attendance = Attendance.objects.create(
+            student=student, subject=subject)
 
         return attendance
+
+
+class TurmaSerializer(serializers.ModelSerializer):
+    teacher = TeacherSerializer()
+
+    class Meta:
+        model = Turma
+        fields = ('id', 'students', 'teacher', 'name')
+
+
+class TurmaCoreSerializer(serializers.ModelSerializer):
+    students = serializers.CharField()
+    students = serializers.CharField()
+    teacher = TeacherSimpleSerializer()
+
+    class Meta:
+        model = Turma
+        fields = ('id', 'students', 'teacher', 'name')
+
+    def create(self, validated_data):
+        student_name = validated_data['students']
+        teacher_name = validated_data['teacher']
+        class_name = validated_data['name']
+        print('nomme do professor {}'.format(teacher_name))
+        student = Student.objects.get(name=student_name)
+        teacher = Teacher.objects.get(name=teacher_name['name'])
+
+        try:
+            turma = Turma.objects.get(name=class_name)
+            student.turma_set.add(turma)
+        except Turma.DoesNotExist:
+            turma = Turma.objects.create(name=class_name, teacher=teacher)
+            student.turma_set.add(turma)
+
+        return turma
+
+class UserSerializer(serializers.ModelSerializer):
+    # get the current user
+    user = serializers.PrimaryKeyRelatedField(
+        read_only=True, default=serializers.CurrentUserDefault())
+
+    class Meta:
+        model = TesteUsuario
+        fields = ('user',)
