@@ -138,6 +138,7 @@ class TurmaCoreSerializer(serializers.ModelSerializer):
 
         return turma
 
+
 class UserSerializer(serializers.ModelSerializer):
     # get the current user
     user = serializers.PrimaryKeyRelatedField(
