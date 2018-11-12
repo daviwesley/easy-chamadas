@@ -5,7 +5,7 @@ from rest_framework.test import APIClient
 
 from model_mommy import mommy
 
-from api.models import Student, Subject, Teacher
+from api.models import Student, Subject, Teacher, Turma
 
 
 class TestAPIPost(TestCase):
@@ -22,6 +22,9 @@ class TestAPIPost(TestCase):
                                 id_subscription=381097)
         self.disciplina = mommy.make(Subject, name="Estrutura de Dados")
         self.teacher = mommy.make(Teacher, name="Tatiane Fernandes")
+        self.turma = Turma.objects.create(
+            name='Estrutura de Dados', teacher=self.teacher)
+        Student.objects.get(name='Eren Yager').turma_set.add(self.turma)
 
     def test_api_create_student(self):
         # Arrange
@@ -81,8 +84,8 @@ class TestAPIPost(TestCase):
         url = '/api/faltas'
         data = {
             "faults": 2,
-            "student": {"name": "Eren Yager"},
-            "subject": {"name": "Estrutura de Dados"}
+            "student": "Eren Yager",
+            "turma": "Estrutura de Dados"
         }
         # Act
         response = self.client.post(url, data, format='json')
@@ -125,3 +128,29 @@ class TestAPIPost(TestCase):
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 201)
+
+    def test_api_create_turma_with_existing_teacher_and_absent_turma_name(self):
+        """ it should create a turma because we have an existing teacher in DB"""
+        # Arrange
+        data = {
+            "students": "Eren Yager",
+            "teacher": "Tatiane Fernandes",
+            "name": "Dota 2"
+        }
+        url = '/api/turmas'
+        # Act
+        response = self.client.post(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 201)
+
+    def test_api_create_turma_without_absent_teacher_and_student_name(self):
+        data = {
+            "students": "João das Tapiocas",
+            "teacher": "Mendigo da rua 3",
+            "name": "Dota 2"
+        }
+        url = '/api/turmas'
+        # Act
+        response = self.client.post(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 404)

@@ -78,7 +78,6 @@ class TestDatabase(TestCase):
         self.assertTrue(isinstance(att, Attendance))
 
 
-
 class TestURLsemToken(TestCase):
     # fixtures = ['datadumped']
 
@@ -157,7 +156,7 @@ class TestURLsemToken(TestCase):
     def test_url_api_teacher_post(self):
         # Arrange
         data = {
-            'name':'Armin Armlet'
+            'name': 'Armin Armlet'
         }
         url = '/api/professores'
         # Act
@@ -188,6 +187,7 @@ class TestaURLcomToken(TestCase):
                          password="ackerman948").auth_token)
         self.client.credentials(HTTP_AUTHORIZATION="Token {}".
                                 format(self.token))
+
     def test_received_token(self):
         self.assertEquals(self.token, Token.objects.get(user_id=1).__str__())
 
