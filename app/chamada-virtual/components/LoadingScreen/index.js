@@ -22,8 +22,8 @@ export class LoadingScreen extends Component {
 	render() {
 		return (
 			<View style={{flex:1, alignItems:'center', justifyContent:'center'}}>
-				<ActivityIndicator />
-				<Text>Carregando...</Text>
+				<ActivityIndicator color='#003399'/>
+				<Text style={{color:'#003399'}}>Carregando...</Text>
 				<StatusBar barStyle="default" />
 			</View>
 		);

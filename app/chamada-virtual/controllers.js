@@ -12,8 +12,8 @@ const methods = {
 	PUT: 'PUT',
 	DELETE: 'DELETE'
 };
-const url_dev = "http://10.42.0.1:8000/"
-const url_prod = "https://daviwesleyvk.pythonanywhere.com/"
+export const url_dev = "http://10.42.0.1:8000/"
+export const url_prod = "https://daviwesleyvk.pythonanywhere.com/"
 
 const request = (method, endpoint, options) => {
 	const result = new Promise((resolve, reject) => {
@@ -64,24 +64,62 @@ const request = (method, endpoint, options) => {
 
 // retorna o token que está gravado na memória do celular
 export const getDBToken = () => {
-	AsyncStorage.getItem('token')
-}
-// CHAMADAS
-export const inserirPresenca = (matricula, disciplina, token) => {
- const data = {
-	 student: matricula,
-	 subject: disciplina
- }
- return request(methods.POST, 'api/chamada', { token, params: data})
+	let token = ''
+	AsyncStorage.getItem('token').then(dados => {
+		token = dados.replace(/['"]+/g, '')
+	})
+	return token
 }
 
-export const inserirFalta = (quantFaltas, matricula, disciplina, token) => {
+// TURMAS
+export const inserirTurma = (dados, token, ) => {
+	data = {
+		"students": dados.student,
+		"teacher": dados.teacher,
+		"name": dados.turma
+	}
+	request(methods.POST, 'api/turmas', { token, params: data })
+}
+
+export const inserirTurmaSimples = (dados, token, ) => {
+	data = {
+		"teacher": dados.teacher,
+		"name": dados.turma
+	}
+	request(methods.POST, 'api/turmas', { token, params: data })
+}
+export const getTurma = (token) => {
+	return request(methods.GET, 'api/turmas', { token });
+}
+
+export const getAlunosFromTurma = (token, id) => {
+	return request(methods.GET, `api/turmas/search/${id}`, { token })
+}
+export const criarTurma = (data, token) => {
+	const payload = {
+		"students": data.teacher,
+		"teacher": { "name": data.teacher },
+		"name": data.name
+	}
+	return request(methods.POST, 'api/turmas', { token, params: payload })
+}
+
+// CHAMADAS
+export const inserirPresenca = (matricula, disciplina, token) => {
+	const data = {
+		student: matricula,
+		subject: disciplina
+	}
+	return request(methods.POST, 'api/chamada', { token, params: data })
+}
+
+export const inserirFalta = (quantFaltas, nome, turma, token) => {
 	const data = {
 		"faults": quantFaltas,
-		"student": matricula,
-		"subject": disciplina
+		"student": nome,
+		"turma": turma
 	}
-	return request(methods.POST, 'api/faltas', { token, params: data });
+	request(methods.POST, 'api/faltas', { token, params: data });
 };
 
 // ALUNOS
@@ -89,6 +127,8 @@ export const getallAlunos = (token) => {
 
 	return request(methods.GET, 'api/alunos', { token });
 }
+
+
 
 export const inserirAluno = (nome, matricula, curso, disciplina, token) => {
 	const data = {
@@ -104,7 +144,7 @@ export const removerAluno = (matricula) => {
 	const data = {
 		id_subscription: matricula
 	}
-	return request(methods.DELETE, `api/alunos/${matricula}`, { token, params: data})
+	return request(methods.DELETE, `api/alunos/${matricula}`, { token, params: data })
 }
 
 export const procuraAluno = (procura, token) => {
@@ -112,12 +152,24 @@ export const procuraAluno = (procura, token) => {
 }
 
 // DISCIPLINA
-export const inserirDisciplina = (nome, professor, token) => {
+export const inserirDisciplina = (dados, token) => {
 	const data = {
-		'name': nome,
-		'teacher': professor
+		'name': dados.name,
+		'teacher': { 'name': dados.teacher }
 	}
-	request(methods.POST, 'api/disciplinas', { token, params: data });
+	request(methods.POST, 'api/disciplinas', { params: data, token });
+}
+
+export const getAllDisciplinas = (token) => {
+	request(methods.GET, 'api/disciplinas', { token })
+}
+
+// PROFESSOR
+export const inserirProfessor = (name) => {
+	const data = {
+		name
+	}
+	request(methods.POST, 'api/professores', { token, params: data })
 }
 
 export const fazerLogin = (nome, senha) => {
