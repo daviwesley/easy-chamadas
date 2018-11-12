@@ -95,6 +95,7 @@ export const getTurma = (token) => {
 export const getAlunosFromTurma = (token, id) => {
 	return request(methods.GET, `api/turmas/search/${id}`, { token })
 }
+
 export const criarTurma = (data, token) => {
 	const payload = {
 		"students": data.teacher,
