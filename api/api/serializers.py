@@ -1,7 +1,11 @@
-from rest_framework import serializers
-from rest_framework.fields import CurrentUserDefault
-from .models import Student, Subject, Fault, Teacher, Attendance, Turma, TesteUsuario
 from django.contrib.auth.models import User
+from django.http import JsonResponse
+from rest_framework import serializers
+from rest_framework.exceptions import NotFound
+from rest_framework.fields import CurrentUserDefault
+
+
+from .models import Student, Subject, Fault, Teacher, Attendance, Turma, TesteUsuario
 
 
 class TeacherSerializer(serializers.ModelSerializer):
@@ -60,27 +64,94 @@ class FaultSerializer(serializers.ModelSerializer):
     """ Serialize Fault model."""
     class Meta:
         model = Fault
-        fields = ('id', 'faults', 'student', 'subject', 'day')
+        fields = ('id', 'faults', 'student', 'turma', 'day')
+
+
+class TurmaSerializer(serializers.ModelSerializer):
+    teacher = TeacherSerializer()
+
+    class Meta:
+        model = Turma
+        fields = ('id', 'students', 'teacher', 'name')
+
+
+class TurmaSimpleSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Turma
+        fields = ('name', 'id')
+
+
+class TurmaNameSerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
+
+    class Meta:
+        model = Turma
+        fields = ('name',)
+
+
+class TurmaCoreSerializer(serializers.ModelSerializer):
+    students = serializers.CharField(required=False)
+    teacher = serializers.CharField()
+
+    class Meta:
+        model = Turma
+        fields = ('id', 'students', 'teacher', 'name')
+
+    def create(self, validated_data):
+        student_name = validated_data['students']
+        teacher_name = validated_data['teacher']
+        class_name = validated_data['name']
+        try:
+            student = Student.objects.get(name=student_name)
+        except Student.DoesNotExist:
+            raise NotFound(
+                '{} não encontrado, crie um registro antes!'.format(student_name))
+
+        try:
+            teacher = Teacher.objects.get(name=teacher_name)
+        except Teacher.DoesNotExist:
+            raise NotFound(
+                '{} não encontrado, crie um registro antes!'.format(teacher_name))
+
+        try:
+            turma = Turma.objects.get(name=class_name)
+            student.turma_set.add(turma)
+        except Turma.DoesNotExist:
+            turma = Turma.objects.create(name=class_name, teacher=teacher)
+            student.turma_set.add(turma)
+
+        return turma
 
 
 class FaultListSerializer(serializers.ModelSerializer):
     """Serialize a list of faults"""
-    student = StudentSimpleSerializer()
-    subject = SubjectSimpleSerializer()
+    student = serializers.CharField(required=True)
+    turma = serializers.CharField()
 
     class Meta:
         model = Fault
-        fields = ('id', 'faults', 'student', 'subject', 'day')
+        fields = ('faults', 'student', 'turma', 'day', 'id',)
 
     def create(self, validated_data):
         # TODO
         # add error messages
         name = validated_data.pop('student')
-        sub_name = validated_data.pop('subject')
-        student, _ = Student.objects.get_or_create(name=name['name'])
-        subject, _ = Subject.objects.get_or_create(name=sub_name['name'])
+        sub_name = validated_data.pop('turma')
+
+        try:
+            student = Student.objects.get(name=name)
+        except Student.DoesNotExist:
+            raise NotFound(
+                '{} não encontrado, crie um registro antes!'.format(name))
+        try:
+            turma = Turma.objects.get(name=sub_name)
+        except Turma.DoesNotExist:
+            raise NotFound(
+                '{} não encontrado, crie um registro antes!'.format(sub_name))
+
         falta = Fault.objects.create(faults=validated_data['faults'], student=student,
-                                     subject=subject)
+                                     turma=turma)
         return falta
 
 
@@ -102,41 +173,6 @@ class AttendanceSerializer(serializers.ModelSerializer):
             student=student, subject=subject)
 
         return attendance
-
-
-class TurmaSerializer(serializers.ModelSerializer):
-    teacher = TeacherSerializer()
-
-    class Meta:
-        model = Turma
-        fields = ('id', 'students', 'teacher', 'name')
-
-
-class TurmaCoreSerializer(serializers.ModelSerializer):
-    students = serializers.CharField()
-    students = serializers.CharField()
-    teacher = TeacherSimpleSerializer()
-
-    class Meta:
-        model = Turma
-        fields = ('id', 'students', 'teacher', 'name')
-
-    def create(self, validated_data):
-        student_name = validated_data['students']
-        teacher_name = validated_data['teacher']
-        class_name = validated_data['name']
-        print('nomme do professor {}'.format(teacher_name))
-        student = Student.objects.get(name=student_name)
-        teacher = Teacher.objects.get(name=teacher_name['name'])
-
-        try:
-            turma = Turma.objects.get(name=class_name)
-            student.turma_set.add(turma)
-        except Turma.DoesNotExist:
-            turma = Turma.objects.create(name=class_name, teacher=teacher)
-            student.turma_set.add(turma)
-
-        return turma
 
 
 class UserSerializer(serializers.ModelSerializer):

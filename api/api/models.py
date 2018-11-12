@@ -2,13 +2,14 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 
 # Create your models here.
 
 
 class Teacher(models.Model):
-    name = models.CharField(verbose_name='nome', max_length=55)
+    name = models.CharField(verbose_name='nome', max_length=55, unique=True)
 
     def __str__(self):
         return self.name
@@ -39,7 +40,7 @@ class Student(models.Model):
                ('Engenharia Civil', 'Engenharia Civil'),
                ('Engenharia Mecânica', 'Engenharia Mecânica'),)
 
-    name = models.CharField(max_length=55, verbose_name='nome')
+    name = models.CharField(max_length=55, verbose_name='nome', unique=True)
     id_subscription = models.IntegerField(primary_key=True,
                                           verbose_name='matricula')
     course = models.CharField(max_length=30, choices=COURSES,
@@ -52,6 +53,20 @@ class Student(models.Model):
         return self.name
 
 
+class Turma(models.Model):
+    """ Model for student classes"""
+    name = models.CharField(max_length=55, verbose_name='Nome da turma')
+    teacher = models.ForeignKey(
+        Teacher, on_delete=models.CASCADE, verbose_name='Professor')
+    students = models.ManyToManyField(Student, verbose_name='Estudantes')
+
+    def __str__(self):
+        return '{} - {}'.format(self.name, self.teacher)
+
+    class Meta:
+        verbose_name = 'Turma'
+
+
 class Situation(models.Model):
     SITUACAO = (('REP', 'Reprovado por falta'),
                 ('ATV', 'Ativo'),)
@@ -62,18 +77,18 @@ class Situation(models.Model):
 
 
 class Fault(models.Model):
-    faults = models.IntegerField(verbose_name='Faltas')
+    faults = models.IntegerField(verbose_name='Faltas',default=2)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,
                                 verbose_name='Aluno')
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE,
-                                verbose_name='Disciplina')
+    turma = models.ForeignKey(Turma, on_delete=models.CASCADE,
+                                verbose_name='Turma')
     day = models.DateField(auto_now=True, verbose_name="Data")
 
     class Meta:
         verbose_name = 'Falta'
 
     def __str__(self):
-        return "{} - {}".format(self.student.name, self.subject.name)
+        return "{} - {}".format(self.student.name, self.turma.name)
 
 
 class Attendance(models.Model):
@@ -88,6 +103,12 @@ class Attendance(models.Model):
     def __str__(self):
         return '{} - {} /{}'.format(self.student.name, self.subject.name,
                                     self.day)
+
+
+class TesteUsuario(models.Model):
+    """ only for test purposes """
+    name = models.CharField(max_length=40)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 # cria um token quando um usuário é criado
