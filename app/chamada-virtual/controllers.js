@@ -81,28 +81,12 @@ export const inserirTurma = (dados, token, ) => {
 	request(methods.POST, 'api/turmas', { token, params: data })
 }
 
-export const inserirTurmaSimples = (dados, token, ) => {
-	data = {
-		"teacher": dados.teacher,
-		"name": dados.turma
-	}
-	request(methods.POST, 'api/turmas', { token, params: data })
-}
 export const getTurma = (token) => {
 	return request(methods.GET, 'api/turmas', { token });
 }
 
 export const getAlunosFromTurma = (token, id) => {
 	return request(methods.GET, `api/turmas/search/${id}`, { token })
-}
-
-export const criarTurma = (data, token) => {
-	const payload = {
-		"students": data.teacher,
-		"teacher": { "name": data.teacher },
-		"name": data.name
-	}
-	return request(methods.POST, 'api/turmas', { token, params: payload })
 }
 
 // CHAMADAS
