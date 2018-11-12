@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { inserirDisciplina, inserirTurmaSimples} from '../../controllers'
+import { inserirDisciplin } from '../../controllers'
 
 export class CadastroDisciplina extends React.Component {
 	static navigationOptions = {
@@ -20,7 +20,8 @@ export class CadastroDisciplina extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			turma: " ",
+			aluno: '',
+			turma: '',
 			professor: '',
 			token: ''
 		}
@@ -35,9 +36,10 @@ export class CadastroDisciplina extends React.Component {
 	cadastrar() {
 		const data = {
 			"teacher": this.state.professor,
-			"name": this.state.turma
+			"name": this.state.turma,
+			"students": this.state.aluno
 		}
-		inserirTurmaSimples(data, this.state.token)
+		inserirTurma(data, this.state.token)
 	}
 	render() {
 		return (
@@ -46,7 +48,7 @@ export class CadastroDisciplina extends React.Component {
 					{/* <StatusBar backgroundColor='black'/> */}
 					<View style={styles.textContainer}>
 						<Text style={styles.headerText}>Nome da turma</Text>
-						<TextInput placeholder="Digite o nome da disciplina"
+						<TextInput placeholder="Digite o nome da turma"
 							style={styles.textInput}
 							autoCapitalize='words'
 							returnKeyType='next'
@@ -61,9 +63,20 @@ export class CadastroDisciplina extends React.Component {
 							ref={el => this.horasInput = el}
 							style={styles.textInput}
 							returnKeyType='next'
-							onSubmitEditing={() => { this.cadastrar(); }}
+							onSubmitEditing={() => { this.alunoInput.focus()}}
 							blurOnSubmit={false}
 							onChangeText={text => this.setState({ professor: text })}
+						/>
+					</View>
+					<View style={styles.textContainer}>
+						<Text style={styles.headerText}>Aluno</Text>
+						<TextInput placeholder="Digite o nome do alunor"
+							ref={el => this.alunoInput = el}
+							style={styles.textInput}
+							returnKeyType='go'
+							onSubmitEditing={() => { this.cadastrar(); }}
+							blurOnSubmit={false}
+							onChangeText={text => this.setState({ aluno: text })}
 						/>
 					</View>
 					<Button title="Cadastrar Disciplina" onPress={() => this.cadastrar()}
