@@ -47,7 +47,6 @@ export class CadastroAluno extends React.Component {
 			this.setState({
 				token: dados.replace(/['"]+/g, '')
 			})
-			getTurma(dados.replace(/['"]+/g, '')).then(dados => this.setState({ turma: dados }))
 		})
 		console.log(this.state.token)
 	}
@@ -66,7 +65,7 @@ export class CadastroAluno extends React.Component {
 				Keyboard.dismiss()
 			})
 			.catch(erro => {
-				this.dropdown.alertWithType('error', 'Erro','');
+				this.dropdown.alertWithType('error', 'Erro', message='algo deu errado!');
 				if (erro.name) {
 					this.setState({ errorAluno: erro.name })
 				}
@@ -142,7 +141,9 @@ export class CadastroAluno extends React.Component {
 					/>
 				</ScrollView>
 				<StatusBar barStyle='light-content' />
-				<DropdownAlert ref={ref => this.dropdown = ref} updateStatusBar={false}/>
+				<DropdownAlert ref={ref => this.dropdown = ref} updateStatusBar={false}
+				messageNumOfLines={1}
+				defaultContainer={{paddingTop:0}}/>
 			</KeyboardAvoidingView>
 		);
 	}
