@@ -64,6 +64,9 @@ export class RealizaChamadaScreen extends Component {
 			<DropdownAlert
 				ref={ref => this.dropdown = ref}
 				updateStatusBar={false}
+				messageNumOfLines={1}
+				defaultContainer={{paddingTop:0}}
+				closeInterval={1000}
 				/>
 			</View>
 		)
