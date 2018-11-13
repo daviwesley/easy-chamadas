@@ -8,11 +8,8 @@ import DropdownAlert from 'react-native-dropdownalert';
 export class RealizaChamadaScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
 		title: `${navigation.state.params.title}`,
-		headerStyle: {
-			backgroundColor: '#003399'
-		},
 		headerTitleStyle: {
-			color: 'white'
+			color: 'black'
 		}
 	})
 	constructor(props) {

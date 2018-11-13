@@ -42,7 +42,6 @@ export class ChamadaScreen extends React.Component {
 		return (
 			<ScrollView style={styles.list}>
 				{this.renderLoading()}
-				{console.log('chamdaSCREEN',this.state.turma)}
 				{this.state.turma.map((turma, id) => (
 					<ListItem
 						leftIcon={{

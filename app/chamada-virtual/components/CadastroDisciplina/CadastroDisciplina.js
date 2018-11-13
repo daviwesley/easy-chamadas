@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 
 import { Button } from 'react-native-elements';
-import { inserirDisciplin } from '../../controllers'
+import { inserirTurma } from '../../controllers'
 
 export class CadastroDisciplina extends React.Component {
 	static navigationOptions = {
@@ -33,13 +33,14 @@ export class CadastroDisciplina extends React.Component {
 			})
 		})
 	}
-	cadastrar() {
+	async cadastrar() {
 		const data = {
 			"teacher": this.state.professor,
 			"name": this.state.turma,
 			"students": this.state.aluno
 		}
-		inserirTurma(data, this.state.token)
+		console.log(this.state)
+		await inserirTurma(this.state.aluno, this.state.professor, this.state.turma, this.state.token)
 	}
 	render() {
 		return (
