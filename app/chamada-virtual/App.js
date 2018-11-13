@@ -1,7 +1,7 @@
 import React from 'react';
 import {
 	ScrollView, AsyncStorage, StatusBar, LayoutAnimation,
-	Animated, StyleSheet, View
+	Animated, StyleSheet, View, Text
 } from 'react-native';
 import { Card, Icon, } from 'react-native-elements'
 import {
@@ -9,17 +9,18 @@ import {
 	FadeTransition,
 	withFadeTransition
 } from 'react-navigation-switch-transitioner'
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
 
 //telas
 import { CadastroTeacher } from './components/CadastroProfessor/cadastroProfessor';
 import { LoginScreen } from './components/Login/LoginScreen'
-import { CadastroDisciplina } from './components/CadastroDisciplina/CadastroDisciplina'
+import { CadastroDisciplina } from './components/CadastroDisciplina/CadastroDisciplina';
 import { CadastroAluno } from './components/CadastroAluno/CadastroAluno';
 import { ChamadaScreen } from './components/Chamada/ChamadaScreen';
 import { LoadingScreen } from './components/LoadingScreen';
 import { RealizaChamadaScreen } from './components/RealizarChamada';
+import { FaltaScreen } from './components/Faltas';
 
 class App extends React.Component {
 	static navigationOptions = FadeTransition.navigationOptions
@@ -117,21 +118,38 @@ class App extends React.Component {
 const AuthStack = createStackNavigator({
 	SignIn: LoginScreen
 })
-/* const tab = createBottomTabNavigator({
+const tabBar = createMaterialTopTabNavigator({
 		cadastroProfessor:{
-			screen: CadastroTeacher,
+			screen: RealizaChamadaScreen,
 			navigationOptions: {
-				tabBarLabel: 'Cadastro Professor',
+				tabBarLabel: 'Turma',
 				tabBarIcon: ({tintColor, focused}) => (
 					<Icon
 						name={'star'}
 						size={24}
-						color={focused ? '#003399':'red'}
+						color={focused ? '#003399':'black'}
+						/>
+				),
+			}
+		},
+		faltas:{
+			screen: FaltaScreen,
+			navigationOptions: {
+				tabBarLabel: 'Faltas',
+				tabBarIcon: ({tintColor, focused}) => (
+					<Icon
+						name={'assistant'}
+						size={24}
+						color={focused ? '#003399':'black'}
 						/>
 				)
 			}
+		},
+	},{
+		headerOptions:{
+			style:{backgroundColor:'yellow'}
 		}
-	}) */
+	})
 const navBar = createStackNavigator({
 	Home: {
 		screen: App,
@@ -142,7 +160,7 @@ const navBar = createStackNavigator({
 		}
 	},
 	FazerChamada: {
-		screen: RealizaChamadaScreen,
+		screen: tabBar,
 		navigationOptions: {
 			headerTintColor: '#ffffff'
 		}
@@ -175,12 +193,6 @@ const navBar = createStackNavigator({
 			headerTintColor: '#ffffff'
 		}
 	},
-	/* Root: { //tabBar funcionando
-		screen: tab,
-		navigationOptions: {
-			title: 'Apenas um teste aleatório'
-		}
-	}, */
 });
 sytles = StyleSheet.create({
 	versao: {
