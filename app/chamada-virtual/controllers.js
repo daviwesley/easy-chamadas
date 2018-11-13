@@ -72,11 +72,11 @@ export const getDBToken = () => {
 }
 
 // TURMAS
-export const inserirTurma = (dados, token, ) => {
-	data = {
-		"students": dados.student,
-		"teacher": dados.teacher,
-		"name": dados.turma
+export const inserirTurma = (students, teacher, name, token, ) => {
+	const data = {
+		name,
+		students,
+		teacher
 	}
 	request(methods.POST, 'api/turmas', { token, params: data })
 }
