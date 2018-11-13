@@ -33,14 +33,17 @@ export class CadastroDisciplina extends React.Component {
 			})
 		})
 	}
-	async cadastrar() {
+	cadastrar() {
 		const data = {
 			"teacher": this.state.professor,
 			"name": this.state.turma,
 			"students": this.state.aluno
 		}
-		console.log(this.state)
-		await inserirTurma(this.state.aluno, this.state.professor, this.state.turma, this.state.token)
+		try {
+      inserirTurma(this.state.aluno, this.state.professor, this.state.turma, this.state.token)
+    } catch (error) {
+      console.log('erro em ', error)
+    }
 	}
 	render() {
 		return (
