@@ -4,8 +4,8 @@ from .views import (StudentViewAPI, FaultViewAPI, StudentSearchViewAPI,
                     TeacherUpdateView, StudentUpdateView, FaultViewUpdate,
                     StudentSearchNameViewAPI, SubjectSearchView, AttendanceView,
                     TurmaView, FaultListSerializer, UserView, TurmaDeleteView,
-                    TeacherDeleteView, StudentDeleteView, get_total_faltas,
-                    get_students_from_turma)
+                    TeacherDeleteView, StudentDeleteView, get_aluno_total_faltas,
+                    get_students_from_turma, get_total_faltas)
 from rest_framework.authtoken import views
 from django_extensions.management.commands import show_urls
 
@@ -29,7 +29,7 @@ urlpatterns = [
     path('faltas', FaultViewAPI.as_view(), name='faltas_api'),
     path('faltas/<int:pk>', FaultViewUpdate.as_view()),
     path('faltas/delete/<int:pk>', FaultViewAPI.as_view()),
-    path('testefaltas/<str:aluno>/<int:turma>', get_total_faltas),
+    path('testefaltas/<str:aluno>/<int:turma>', get_aluno_total_faltas),
     # Authentication
     path('api-token', views.obtain_auth_token, name="tokenapi"),
     # Attendances
@@ -39,6 +39,7 @@ urlpatterns = [
     path('turmas', TurmaView.as_view()),
     path('turmas/<int:pk>', TurmaDeleteView.as_view()),
     path('turmas/search/<int:id>', get_students_from_turma),
+    path('turmas/faltas/<int:turma>', get_total_faltas),
     # Get user id
     path('user', UserView.as_view()),
 

@@ -123,7 +123,7 @@ class UserView(generics.ListAPIView):
 
 
 @api_view(['GET'])
-def get_total_faltas(request,*args, **kwargs):
+def get_aluno_total_faltas(request, *args, **kwargs):
     ''' not a fashion way to do it '''
     aluno = str(kwargs['aluno'])
     turma = str(kwargs['turma'])
@@ -132,16 +132,29 @@ def get_total_faltas(request,*args, **kwargs):
     for faltas in query:
         a = a + faltas.faults
 
-    return JsonResponse({'faltas':a})
+    return JsonResponse({'faltas': a})
+
 
 @api_view(['GET'])
-def get_students_from_turma(request,*args, **kwargs):
+def get_total_faltas(request, *args, **kwargs):
+    ''' not a fashion way to do it '''
+    turma = str(kwargs['turma'])
+    query = Fault.objects.filter(turma_id=turma)
+    lista = []
+    for faltas in query.values():
+        lista.append(faltas)
+
+    return JsonResponse({'faltas': lista})
+
+
+@api_view(['GET'])
+def get_students_from_turma(request, *args, **kwargs):
     ''' not a fashion way to do it '''
     id = str(kwargs['id'])
     turma = Turma.objects.get(id=id)
     dados = turma.students.values()
-    a = []
+    lista = []
     for i in dados:
-        a.append(i)
+        lista.append(i)
 
-    return JsonResponse({'alunos': a})
+    return JsonResponse({'alunos': lista})
