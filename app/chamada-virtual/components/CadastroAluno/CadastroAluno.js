@@ -127,21 +127,7 @@ export class CadastroAluno extends React.Component {
 						</Picker>
 						{<Text style={{ color: 'red' }}>{this.state.erroCurso}</Text>}
 					</View>
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Turma</Text>
-						<Picker
-							prompt='Selecione uma turma'
-							selectedValue={this.state.turmaSelected}
-							onValueChange={this.onValueTurma}
-							mode="dialog"
-							style={styles.picker}
-							textStyle={styles.pickerText}>
-							{/* <Picker.Item label='Selecione uma turma' value='Selecione uma turma' /> */}
-							{this.state.turma.map((turma, id) => (
-								<Picker.Item key={id} label={turma.name} value={turma.name} />
-							))}
-						</Picker>
-					</View>
+
 					<Button title="Cadastrar Aluno" onPress={() => this.cadastrar()}
 						iconRight={{
 							name: 'user-circle-o',
