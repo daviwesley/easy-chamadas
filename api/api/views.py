@@ -4,6 +4,7 @@ from rest_framework.authentication import (SessionAuthentication,
                                            TokenAuthentication)
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .serializers import (StudentSerializer, FaultSerializer,
                           TeacherSerializer, SubjectSerializer,
@@ -120,6 +121,22 @@ class UserView(generics.ListAPIView):
     def get_queryset(self):
         user = User.objects.filter(id=self.request.user.id)
         return user
+
+
+class TotalFaltasAlunoTurma(generics.ListAPIView):
+    """ return absents days from a given student name and id """
+    serializer_class = FaultListSerializer
+
+    def get_queryset(self):
+        aluno = self.kwargs['id']
+        turma = self.kwargs['turma']
+        query = Fault.objects.filter(student_id=aluno, turma_id=turma)
+        return query
+
+
+class RetriveTest(generics.RetrieveAPIView):
+    serializer_class = FaultListSerializer
+    queryset = Fault.objects.all()
 
 
 @api_view(['GET'])
