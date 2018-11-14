@@ -77,11 +77,11 @@ class Situation(models.Model):
 
 
 class Fault(models.Model):
-    faults = models.IntegerField(verbose_name='Faltas',default=2)
+    faults = models.IntegerField(verbose_name='Faltas', default=2)
     student = models.ForeignKey(Student, on_delete=models.CASCADE,
                                 verbose_name='Aluno')
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE,
-                                verbose_name='Turma')
+                              verbose_name='Turma')
     day = models.DateField(auto_now=True, verbose_name="Data")
 
     class Meta:
@@ -116,3 +116,4 @@ class TesteUsuario(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+        Teacher.objects.create(name=instance.username)
