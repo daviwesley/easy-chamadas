@@ -9,7 +9,7 @@ import {
 	FadeTransition,
 	withFadeTransition
 } from 'react-navigation-switch-transitioner'
-import { createStackNavigator, createMaterialTopTabNavigator } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import { Col, Grid } from "react-native-easy-grid";
 
 //telas
@@ -118,16 +118,17 @@ class App extends React.Component {
 const AuthStack = createStackNavigator({
 	SignIn: LoginScreen
 })
-const tabBar = createMaterialTopTabNavigator({
+/* const tabBar = createBottomTabNavigator({
 		cadastroProfessor:{
 			screen: RealizaChamadaScreen,
 			navigationOptions: {
+				header:null,
 				tabBarLabel: 'Turma',
 				tabBarIcon: ({tintColor, focused}) => (
 					<Icon
 						name={'star'}
 						size={24}
-						color={focused ? '#003399':'black'}
+						color={focused ? '#003399':'grey'}
 						/>
 				),
 			}
@@ -135,12 +136,13 @@ const tabBar = createMaterialTopTabNavigator({
 		faltas:{
 			screen: FaltaScreen,
 			navigationOptions: {
+				header:null,
 				tabBarLabel: 'Faltas',
 				tabBarIcon: ({tintColor, focused}) => (
 					<Icon
 						name={'assistant'}
 						size={24}
-						color={focused ? '#003399':'black'}
+						color={focused ? '#003399':'grey'}
 						/>
 				)
 			}
@@ -149,7 +151,7 @@ const tabBar = createMaterialTopTabNavigator({
 		headerOptions:{
 			style:{backgroundColor:'yellow'}
 		}
-	})
+	}) */
 const navBar = createStackNavigator({
 	Home: {
 		screen: App,
@@ -160,9 +162,15 @@ const navBar = createStackNavigator({
 		}
 	},
 	FazerChamada: {
-		screen: tabBar,
+		screen: RealizaChamadaScreen,
 		navigationOptions: {
-			headerTintColor: '#ffffff'
+			headerTintColor: '#ffffff',
+			headerStyle: {
+				backgroundColor: '#003399'
+			},
+			headerTitleStyle: {
+				color: 'white'
+			}
 		}
 	},
 	CadastroAluno: {

@@ -86,7 +86,7 @@ export const getTurma = (token) => {
 }
 
 export const getAlunosFromTurma = (token, id) => {
-	return request(methods.GET, `api/turmas/search/${id}`, { token })
+	return request(methods.GET, `api/turmas/alunos/${id}`, { token })
 }
 
 // CHAMADAS

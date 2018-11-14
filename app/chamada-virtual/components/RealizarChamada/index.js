@@ -8,9 +8,6 @@ import DropdownAlert from 'react-native-dropdownalert';
 export class RealizaChamadaScreen extends Component {
 	static navigationOptions = ({ navigation }) => ({
 		title: `${navigation.state.params.title}`,
-		headerTitleStyle: {
-			color: 'black'
-		}
 	})
 	constructor(props) {
 		super(props)
@@ -51,6 +48,7 @@ export class RealizaChamadaScreen extends Component {
 						name: 'user-circle-o',
 						type: 'font-awesome',
 						color: '#003399',
+						onPress:()=>console.log("oi")
 					}}
 					hideChevron
 					onPress={() => this.realizarFalta(aluno.name, name_turma)}
