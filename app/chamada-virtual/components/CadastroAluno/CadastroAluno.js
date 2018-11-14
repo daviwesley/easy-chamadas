@@ -110,7 +110,6 @@ export class CadastroAluno extends React.Component {
 						<Text style={styles.headerText}>Curso</Text>
 						<Picker
 							prompt="Selecione um curso abaixo"
-							title='vamos meu amigo'
 							selectedValue={this.state.curso}
 							onValueChange={this.onValueChange}
 							mode="dialog"
