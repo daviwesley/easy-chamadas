@@ -1,12 +1,13 @@
 from django.urls import path
-from .views import (StudentViewAPI, FaultViewAPI, StudentSearchViewAPI,
+from .views import (StudentViewAPI, FaltasFromUser, StudentSearchViewAPI,
                     TeacherViewAPI, SubjectViewAPI, SubjectUpdateView,
                     TeacherUpdateView, StudentUpdateView, FaultViewUpdate,
                     StudentSearchNameViewAPI, SubjectSearchView, AttendanceView,
-                    TurmaView, FaultListSerializer, UserView, TurmaDeleteView,
+                    TurmaFromUser, FaultListSerializer, UserView, TurmaDeleteView,
                     TeacherDeleteView, StudentDeleteView, get_aluno_total_faltas,
                     get_students_from_turma, get_total_faltas, TotalFaltasAlunoTurma,
-                    RetriveTest)
+                    RetriveTest, FaultViewAPI, get_full_list_faltas, UserCreator,
+                    get_teacher_name)
 from rest_framework.authtoken import views
 from django_extensions.management.commands import show_urls
 
@@ -26,8 +27,9 @@ urlpatterns = [
     path('professores', TeacherViewAPI.as_view(), name='professores'),
     path('professores/<int:pk>', TeacherUpdateView.as_view()),
     path('professores/<int:pk>', TeacherDeleteView.as_view()),
+    path('professores/user', get_teacher_name ),
     # Faults
-    path('faltas', FaultViewAPI.as_view(), name='faltas_api'),
+    path('faltas', FaltasFromUser.as_view(), name='faltas_api'),
     path('faltas/<int:pk>', FaultViewUpdate.as_view()),
     path('faltas/delete/<int:pk>', FaultViewAPI.as_view()),
     # path('faltas/<str:aluno>/<int:turma>', get_aluno_total_faltas),
@@ -35,11 +37,13 @@ urlpatterns = [
     path('faltas/id/<int:pk>', RetriveTest.as_view()),
     # Authentication
     path('api-token', views.obtain_auth_token, name="tokenapi"),
+    path('create', UserCreator.as_view()),
     # Attendances
     path('presencas', AttendanceView.as_view()),
     path('presencas/<int:pk>', AttendanceView.as_view()),
     # Turmas
-    path('turmas', TurmaView.as_view()),
+    path('turmas', TurmaFromUser.as_view()),
+    path('turmas/relatorio/<int:turma>',get_full_list_faltas),
     path('turmas/<int:pk>', TurmaDeleteView.as_view()),
     path('turmas/alunos/<int:id>', get_students_from_turma),
     path('turmas/faltas/<int:turma>', get_total_faltas),

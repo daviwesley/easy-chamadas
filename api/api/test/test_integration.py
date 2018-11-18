@@ -1,14 +1,14 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-
 from rest_framework.test import APIClient
-
 from model_mommy import mommy
 
 from api.models import Student, Subject, Teacher, Turma
 
 
 class TestAPIPost(TestCase):
+    """Testa as urls da API """
+
     def setUp(self):
         self.client = APIClient()
         self.client1 = APIClient()
@@ -39,20 +39,6 @@ class TestAPIPost(TestCase):
         # Assert
         self.assertEqual(response.status_code, 201)
 
-    def test_api_update_student(self):
-        # Arrange
-        self.test_api_create_student()  # it needs to create a student
-        sub = 381097
-        url = "/api/alunos/update/{}".format(sub)
-
-        data = {
-            "name": "Armin"
-        }
-        # Act
-        response = self.client.patch(url, data, format='json')
-        # Assert
-        self.assertEqual(response.status_code, 200)
-
     def test_api_create_subject(self):
         # Arrange
         url = '/api/disciplinas'
@@ -64,20 +50,6 @@ class TestAPIPost(TestCase):
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 201)
-
-    def test_api_update_subject(self):
-        # Arrange
-        self.test_api_create_subject()  # it needs to create a subject
-        id = 1
-        url = "/api/disciplinas/{}".format(id)
-
-        data = {
-            "name": "Teoria das Cordas"
-        }
-        # Act
-        response = self.client.patch(url, data, format='json')
-        # Assert
-        self.assertEqual(response.status_code, 200)
 
     def test_api_create_a_fault(self):
         # Arrange
@@ -91,20 +63,6 @@ class TestAPIPost(TestCase):
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 201)
-
-    def test_api_update_student_fault(self):
-        # Arrange
-        self.test_api_create_a_fault()  # it needs to create a fault report before testing
-        id = 1
-        url = "/api/faltas/{}".format(id)
-
-        data = {
-            "faults": 9
-        }
-        # Act
-        response = self.client.patch(url, data, format='json')
-        # Assert
-        self.assertEqual(response.status_code, 200)
 
     def test_api_create_teacher(self):
         # Arrange
@@ -154,3 +112,45 @@ class TestAPIPost(TestCase):
         response = self.client.post(url, data, format='json')
         # Assert
         self.assertEqual(response.status_code, 404)
+
+    def test_api_update_student(self):
+        # Arrange
+        self.test_api_create_student()  # it needs to create a student
+        sub = 381097
+        url = "/api/alunos/update/{}".format(sub)
+
+        data = {
+            "name": "Armin"
+        }
+        # Act
+        response = self.client.patch(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    def test_api_update_subject(self):
+        # Arrange
+        self.test_api_create_subject()  # it needs to create a subject
+        id = 1
+        url = "/api/disciplinas/{}".format(id)
+
+        data = {
+            "name": "Teoria das Cordas"
+        }
+        # Act
+        response = self.client.patch(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 200)
+
+    def test_api_update_student_fault(self):
+        # Arrange
+        self.test_api_create_a_fault()  # it needs to create a fault report before testing
+        id = 1
+        url = "/api/faltas/{}".format(id)
+
+        data = {
+            "faults": 9
+        }
+        # Act
+        response = self.client.patch(url, data, format='json')
+        # Assert
+        self.assertEqual(response.status_code, 200)

@@ -10,7 +10,7 @@ from .serializers import (StudentSerializer, FaultSerializer,
                           TeacherSerializer, SubjectSerializer,
                           FaultListSerializer, AttendanceSerializer,
                           TurmaSerializer, UserSerializer,
-                          TurmaCoreSerializer,)
+                          TurmaCoreSerializer, UserCreatorSerializer)
 from .models import Student, Fault, Teacher, Subject, Attendance, Turma
 from django.contrib.auth.models import User
 from django.http import JsonResponse
@@ -18,8 +18,14 @@ from django.http import JsonResponse
 
 
 class StudentViewAPI(generics.ListCreateAPIView):
-    queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+    def get_queryset(self):
+        query = Student.objects.filter(owner_id=self.request.user.id)
+        return query
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 class FaultViewAPI(generics.ListCreateAPIView, generics.DestroyAPIView):
@@ -139,6 +145,31 @@ class RetriveTest(generics.RetrieveAPIView):
     queryset = Fault.objects.all()
 
 
+class TurmaFromUser(generics.ListCreateAPIView):
+    """ return a list of classes from the current user """
+    serializer_class = TurmaCoreSerializer
+
+    def get_queryset(self):
+        user = self.request.user.id
+        query = Turma.objects.filter(owner_id=user)
+        return query
+
+
+class FaltasFromUser(generics.ListCreateAPIView):
+    """ return a list of fault from the current user """
+    serializer_class = FaultListSerializer
+
+    def get_queryset(self):
+        user = self.request.user.id
+        query = Fault.objects.filter(owner_id=user)
+        return query
+
+
+class UserCreator(generics.CreateAPIView):
+    serializer_class = UserCreatorSerializer
+    permission_classes = (AllowAny,)
+
+
 @api_view(['GET'])
 def get_aluno_total_faltas(request, *args, **kwargs):
     ''' not a fashion way to do it '''
@@ -156,7 +187,8 @@ def get_aluno_total_faltas(request, *args, **kwargs):
 def get_total_faltas(request, *args, **kwargs):
     ''' not a fashion way to do it '''
     turma = str(kwargs['turma'])
-    query = Fault.objects.filter(turma_id=turma)
+    print('user=', request.user.id)
+    query = Fault.objects.filter(turma_id=turma, owner_id=request.user.id)
     lista = []
     for faltas in query.values():
         lista.append(faltas)
@@ -168,10 +200,44 @@ def get_total_faltas(request, *args, **kwargs):
 def get_students_from_turma(request, *args, **kwargs):
     ''' not a fashion way to do it '''
     id = str(kwargs['id'])
-    turma = Turma.objects.get(id=id)
+    turma = Turma.objects.get(id=id, owner_id=request.user.id)
     dados = turma.students.values()
     lista = []
     for i in dados:
         lista.append(i)
 
     return JsonResponse({'alunos': lista})
+
+
+@api_view(['GET'])
+def get_full_list_faltas(request, *args, **kwargs):
+    """ return a absent report filter by a 'turma' with student names and total faults"""
+    turma = str(kwargs['turma'])
+    query = Fault.objects.filter(turma_id=turma, owner_id=request.user.id)
+    alunos_id = []
+    faltas = []
+    for aluno in query:
+        alunos_id.append(aluno.student.id_subscription)
+
+    alunos_id = set(alunos_id)
+
+    for aluno in alunos_id:
+        query1 = Fault.objects.filter(
+            student_id=aluno, turma_id=turma, owner_id=request.user.id)
+        print(query1)
+        if query1:
+            dados = {
+                'name': query1[0].student.name,
+                'faults': query1.count()*2
+            }
+            faltas.append(dados)
+
+    return JsonResponse({'alunos': faltas})
+
+
+@api_view(['GET'])
+def get_teacher_name(request):
+    user = User.objects.get(id=request.user.id)
+    name = '{} {}'.format(user.first_name, user.last_name)
+
+    return JsonResponse({'name': name})

@@ -78,7 +78,7 @@ export const inserirTurma = (students, teacher, name, token, ) => {
 		students,
 		teacher
 	}
-	request(methods.POST, 'api/turmas', { token, params: data })
+	return request(methods.POST, 'api/turmas', { token, params: data })
 }
 
 export const getTurma = (token) => {
@@ -89,6 +89,19 @@ export const getAlunosFromTurma = (token, id) => {
 	return request(methods.GET, `api/turmas/alunos/${id}`, { token })
 }
 
+export const getTotalFaltasTurma = (id, token) => {
+	return request(methods.GET, `api/turmas/relatorio/${id}`, { token })
+}
+
+export const criarUsuario = (username, first_name, last_name, password) => {
+	dados = {
+		username,
+		first_name,
+		last_name,
+		password
+	}
+	return request(methods.POST, 'api/create', {params:dados})
+}
 // CHAMADAS
 export const inserirPresenca = (matricula, disciplina, token) => {
 	const data = {
@@ -104,16 +117,13 @@ export const inserirFalta = (quantFaltas, nome, turma, token) => {
 		"student": nome,
 		"turma": turma
 	}
-	request(methods.POST, 'api/faltas', { token, params: data });
+	return request(methods.POST, 'api/faltas', { token, params: data });
 };
 
 // ALUNOS
 export const getallAlunos = (token) => {
-
 	return request(methods.GET, 'api/alunos', { token });
 }
-
-
 
 export const inserirAluno = (nome, matricula, curso, disciplina, token) => {
 	const data = {
@@ -142,11 +152,11 @@ export const inserirDisciplina = (dados, token) => {
 		'name': dados.name,
 		'teacher': { 'name': dados.teacher }
 	}
-	request(methods.POST, 'api/disciplinas', { params: data, token });
+	return request(methods.POST, 'api/disciplinas', { params: data, token });
 }
 
 export const getAllDisciplinas = (token) => {
-	request(methods.GET, 'api/disciplinas', { token })
+	return request(methods.GET, 'api/disciplinas', { token })
 }
 
 // PROFESSOR
@@ -154,7 +164,7 @@ export const inserirProfessor = (name) => {
 	const data = {
 		name
 	}
-	request(methods.POST, 'api/professores', { token, params: data })
+	return request(methods.POST, 'api/professores', { token, params: data })
 }
 
 export const fazerLogin = (nome, senha) => {
@@ -164,3 +174,7 @@ export const fazerLogin = (nome, senha) => {
 	};
 	return request(methods.POST, 'api/api-token', { params: data });
 };
+
+export const getTeacherName = (token) => {
+	return request(methods.GET, 'api/professores/user', { token })
+}

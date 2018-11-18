@@ -2,9 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
-
+from rest_framework.fields import CurrentUserDefault
 # Create your models here.
 
 
@@ -45,6 +44,7 @@ class Student(models.Model):
                                           verbose_name='matricula')
     course = models.CharField(max_length=30, choices=COURSES,
                               verbose_name="Curso")
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Aluno'
@@ -59,9 +59,10 @@ class Turma(models.Model):
     teacher = models.ForeignKey(
         Teacher, on_delete=models.CASCADE, verbose_name='Professor')
     students = models.ManyToManyField(Student, verbose_name='Estudantes')
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return '{} - {}'.format(self.name, self.teacher)
+        return '{}'.format(self.name)
 
     class Meta:
         verbose_name = 'Turma'
@@ -83,6 +84,7 @@ class Fault(models.Model):
     turma = models.ForeignKey(Turma, on_delete=models.CASCADE,
                               verbose_name='Turma')
     day = models.DateField(auto_now=True, verbose_name="Data")
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Falta'
@@ -96,6 +98,7 @@ class Attendance(models.Model):
                                 verbose_name='Aluno')
     day = models.DateField(auto_now=True, verbose_name="Data")
     subject = models.ForeignKey('Subject', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Presença'
@@ -108,7 +111,7 @@ class Attendance(models.Model):
 class TesteUsuario(models.Model):
     """ only for test purposes """
     name = models.CharField(max_length=40)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = CurrentUserDefault()
 
 
 # cria um token quando um usuário é criado
@@ -116,4 +119,5 @@ class TesteUsuario(models.Model):
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
-        Teacher.objects.create(name=instance.username)
+        nome = '{} {}'.format(instance.first_name, instance.last_name)
+        Teacher.objects.create(name=nome)

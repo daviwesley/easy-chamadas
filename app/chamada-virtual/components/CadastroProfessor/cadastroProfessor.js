@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	View, Text, TextInput, KeyboardAvoidingView,
+	ScrollView, Text, TextInput, KeyboardAvoidingView,
 	StyleSheet, Platform, AsyncStorage
 } from 'react-native';
 import { Button } from 'react-native-elements'
@@ -38,7 +38,7 @@ export class CadastroTeacher extends React.Component {
 		return (
 			<KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} >
 				{/* <StatusBar backgroundColor='black'/> */}
-				<View style={{ alignItems: 'center', }}>
+				<ScrollView style={{ alignItems: 'center', }}>
 					<Text style={styles.headerText}>Nome do Professor</Text>
 					<TextInput placeholder="Digite o nome do professor"
 						style={styles.textInput}
@@ -48,7 +48,7 @@ export class CadastroTeacher extends React.Component {
 						blurOnSubmit={false}
 						onChangeText={text => this.setState({ nome: text })}
 					/>
-				</View>
+				</ScrollView>
 				<Button title="Entrar" onPress={() => this.cadastrar()}
 						accessibilityLabel="Entrar"
 						buttonStyle={styles.buttonStyle}

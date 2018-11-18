@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-	View, Text, TextInput, KeyboardAvoidingView,
-	StyleSheet, ScrollView, Platform, AsyncStorage,
-	Alert, StatusBar, Keyboard
+	SafeAreaView, Text, KeyboardAvoidingView,
+	StyleSheet, Platform, AsyncStorage,
+	StatusBar, Keyboard
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import { Button, PricingCard } from 'react-native-elements';
+import { Button, FormLabel, FormInput } from 'react-native-elements';
 import DropdownAlert from 'react-native-dropdownalert';
 import { Picker } from 'react-native-picker-dropdown';
 import { inserirAluno, getTurma } from '../../controllers';
@@ -79,35 +79,36 @@ export class CadastroAluno extends React.Component {
 	}
 	render() {
 		return (
-			<KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled={Platform.OS === 'ios'} >
-				<ScrollView decelerationRate={0.9}>
+			<SafeAreaView>
+			<KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} >
 					{/* <StatusBar backgroundColor='black'/> */}
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Nome do aluno</Text>
-						<TextInput placeholder="Digite o nome do aluno"
-							style={styles.textInput}
+					<FormLabel labelStyle={styles.label}>Aluno</FormLabel>
+						<FormInput placeholder="Digite o nome do aluno"
+							inputStyle={styles.input}
+							containerStyle={styles.inputContainer}
+							placeholderTextColor='#003378'
+							underlineColorAndroid='#003399'
 							autoCapitalize='words'
 							returnKeyType='next'
 							onSubmitEditing={() => { this.matriculaInput.focus(); }}
-							blurOnSubmit={false}
 							onChangeText={text => this.setState({ nome: text })}
 						/>
-						{<Text style={{ color: 'red' }}>{this.state.errorAluno}</Text>}
-					</View>
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Matricula do aluno</Text>
-						<TextInput placeholder="Digite a matricula do aluno"
+						{<Text style={styles.errorText}>{this.state.errorAluno}</Text>}
+						<FormLabel labelStyle={styles.label}>Matricula</FormLabel>
+						<FormInput placeholder="Digite a matricula do aluno"
 							ref={el => this.matriculaInput = el}
-							style={styles.textInput}
+							inputStyle={styles.input}
+							placeholder='Digite seu nome'
+							containerStyle={styles.inputContainer}
+							placeholderTextColor='#003378'
+							underlineColorAndroid='#003399'
 							keyboardType='numeric'
 							returnKeyType='next'
 							maxLength={6}
 							onChangeText={text => this.setState({ matricula: text })}
 						/>
-						{<Text style={{ color: 'red' }}>{this.state.errorMatricula}</Text>}
-					</View>
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Curso</Text>
+						{<Text style={styles.errorText}>{this.state.errorMatricula}</Text>}
+						<FormLabel labelStyle={styles.label}>Curso</FormLabel>
 						<Picker
 							prompt="Selecione um curso abaixo"
 							selectedValue={this.state.curso}
@@ -123,9 +124,7 @@ export class CadastroAluno extends React.Component {
 							<Picker.Item label="Ciências da Computação" value="Ciências da Computação" />
 							<Picker.Item label="Engenharia Civil" value="Engenharia Civil" />
 						</Picker>
-						{<Text style={{ color: 'red' }}>{this.state.erroCurso}</Text>}
-					</View>
-
+						{<Text style={styles.errorText}>{this.state.erroCurso}</Text>}
 					<Button title="Cadastrar Aluno" onPress={() => this.cadastrar()}
 						iconRight={{
 							name: 'user-circle-o',
@@ -133,73 +132,46 @@ export class CadastroAluno extends React.Component {
 							color: '#ffffff',
 						}}
 						accessibilityLabel="Cadastrar Aluno"
-						buttonStyle={styles.buttonStyle}
-						fontSize={15}
-						fontWeight='bold'
-						containerViewStyle={styles.buttonContainer}
+						ontainerViewStyle={styles.buttonContainer}
+				    backgroundColor='#003399' borderRadius={3}
 					/>
-				</ScrollView>
 				<StatusBar barStyle='light-content' />
 				<DropdownAlert ref={ref => this.dropdown = ref} updateStatusBar={false}
 				messageNumOfLines={1}
 				defaultContainer={{paddingTop:0}}/>
 			</KeyboardAvoidingView>
+			</SafeAreaView>
 		);
 	}
 }
 const estilo = {
-		paddingHorizontal: Platform.OS === 'ios' ? 16 : null,
-		paddingVertical: Platform.OS === 'ios' ? 16 : null,
+		paddingHorizontal: Platform.OS === 'ios' ? 14 : null,
+		paddingVertical: Platform.OS === 'ios' ? 14 : null,
 }
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "#e5e5e5"
+	input: {
+		color: '#003398'
 	},
-	textContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		alignItems: 'center'
+	inputContainer: {
+		borderBottomColor: '#003399'
 	},
-	textInput: {
-		color: 'black',
-		height: 43,
-		fontSize: 15,
-		width: "100%",
-		borderColor: '#003399',
-		borderRadius: 4,
-		borderWidth: 1,
-		marginBottom: 3,
-		backgroundColor: 'white',
-	},
-	headerText: {
-		fontSize: 15,
-		paddingTop: 5,
-		color: '#003399',
-		fontWeight: 'bold'
+	label: {
+		color:"#003399"
 	},
 	buttonContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		paddingTop: 3
+		marginTop: 8,
 	},
-	buttonStyle: {
-		backgroundColor: '#003399',
-		borderRadius: 4,
-	},
-	formInputContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		borderBottomColor: 'black'
+	errorText: {
+		color: 'red',
+		marginLeft:20,
+		marginRight:20
 	},
 	//padding pode ser corrigido com o Platform API
 	picker: {
 		backgroundColor: 'white',
 		...estilo,
-		marginLeft: 1,
-		marginRight: 1,
+		marginLeft: 20,
+		marginRight: 20,
 		borderRadius: 4,
 		borderWidth: 1,
 		borderColor: '#003399',
@@ -207,10 +179,5 @@ const styles = StyleSheet.create({
 	pickerText: {
 		color: '#003399',
 	},
-	textStyle: {
-    fontSize: 18,
-    textAlign: 'center',
-    padding: 10,
-  },
 });
 export default CadastroAluno;

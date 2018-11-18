@@ -1,13 +1,15 @@
 import React from 'react';
 import {
-	View, Text, TextInput, KeyboardAvoidingView,
-	StyleSheet, Platform, ScrollView, StatusBar,
-	AsyncStorage,
+	ScrollView, Text, KeyboardAvoidingView,
+	StyleSheet, Platform, Keyboard, StatusBar,
+	AsyncStorage, Alert
 } from 'react-native';
 
-import { Button, ListItem } from 'react-native-elements';
-import { inserirTurma, getallAlunos } from '../../controllers'
+import { Button, FormInput, FormLabel } from 'react-native-elements';
+import { inserirTurma, getallAlunos, getTeacherName } from '../../controllers'
 import { Picker } from 'react-native-picker-dropdown';
+import DropdownAlert from 'react-native-dropdownalert';
+
 
 export class CadastroDisciplina extends React.Component {
 	static navigationOptions = {
@@ -16,7 +18,7 @@ export class CadastroDisciplina extends React.Component {
 		},
 		headerTitleStyle: {
 			color: 'white'
-		}
+		},
 	};
 	constructor(props) {
 		super(props)
@@ -26,7 +28,8 @@ export class CadastroDisciplina extends React.Component {
 			alunos: '',
 			turma: '',
 			professor: '',
-			token: ''
+			token: '',
+			erro: '',
 		}
 		this.onValueChange = this.handleValueChange.bind(this)
 	}
@@ -36,7 +39,8 @@ export class CadastroDisciplina extends React.Component {
 			getallAlunos(this.state.token).then(alunos => {
 				this.setState({ alunoLista: alunos })
 			})
-
+			getTeacherName(this.state.token).then(dados => this.setState({professor:dados.name}))
+			.catch(erro => Alert.alert('Erro', JSON.stringify(erro)))
 		})
 	}
 	handleValueChange(alunos) {
@@ -48,40 +52,36 @@ export class CadastroDisciplina extends React.Component {
 			"name": this.state.turma,
 			"students": this.state.alunoLista
 		}
-		try {
+		console.log(this.state.professor)
 			inserirTurma(this.state.alunoSelected, this.state.professor, this.state.turma, this.state.token)
-		} catch (error) {
-			console.log('erro em ', error)
-		}
+			.then(() => {
+			Alert.alert('Sucesso')
+			this.setState({erro:''})
+			})
+			.catch(error => {
+			this.setState({erro:error})
+			console.log(error)
+			})
 	}
 	render() {
 		return (
+			<ScrollView>
 			<KeyboardAvoidingView behavior="padding" enabled={Platform.OS === 'ios'} >
-				<ScrollView>
 					{/* <StatusBar backgroundColor='black'/> */}
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Nome da turma</Text>
-						<TextInput placeholder="Digite o nome da turma"
-							style={styles.textInput}
+					<FormLabel labelStyle={styles.label}>Nome da turma</FormLabel>
+						<FormInput placeholder="Digite o nome da turma"
+							inputStyle={styles.input}
+							laceholder='Digite um usuário'
+							containerStyle={styles.inputContainer}
+							placeholderTextColor='#003378'
+							underlineColorAndroid='#003399'
 							autoCapitalize='words'
-							returnKeyType='next'
-							onSubmitEditing={() => { this.horasInput.focus(); }}
 							blurOnSubmit={false}
+							onSubmitEditing={() => Keyboard.dismiss()}
 							onChangeText={text => this.setState({ turma: text })}
 						/>
-					</View>
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Nome do professor</Text>
-						<TextInput placeholder="Digite o nome do professor"
-							ref={el => this.horasInput = el}
-							style={styles.textInput}
-							returnKeyType='next'
-							blurOnSubmit={false}
-							onChangeText={text => this.setState({ professor: text })}
-						/>
-					</View>
-					<View style={styles.textContainer}>
-						<Text style={styles.headerText}>Aluno</Text>
+						{<Text style={styles.errorText}>{this.state.erro.name}</Text>}
+						<FormLabel labelStyle={styles.label}>Aluno</FormLabel>
 						<Picker
 							prompt="Selecione um aluno"
 							selectedValue={this.state.alunoSelected}
@@ -90,22 +90,21 @@ export class CadastroDisciplina extends React.Component {
 							style={styles.picker}
 							textStyle={styles.pickerText}
 						>
+							<Picker.Item  label='Selecione um aluno' value='' />
 							{this.state.alunoLista.map((aluno, id) => (
 								<Picker.Item key={id} label={aluno.name} value={aluno.name} />
 
 							))}
 						</Picker>
-					</View>
+						{<Text style={styles.errorText}>{this.state.erro.students}</Text>}
 					<Button title="Cadastrar Disciplina" onPress={() => this.cadastrar()}
 						accessibilityLabel="Cadastrar Disciplina"
-						buttonStyle={styles.buttonStyle}
-						fontSize={15}
-						fontWeight='bold'
 						containerViewStyle={styles.buttonContainer}
+				    backgroundColor='#003399' borderRadius={3}
 					/>
-				</ScrollView>
 				<StatusBar barStyle='light-content' />
 			</KeyboardAvoidingView>
+			</ScrollView>
 		);
 	}
 
@@ -115,53 +114,28 @@ const estilo = {
 	paddingVertical: Platform.OS === 'ios' ? 16 : null,
 }
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "#e5e5e5"
+	input: {
+		color: '#003398'
 	},
-	textContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		alignItems: 'center'
+	errorText: {
+		color: 'red',
+		marginRight:20,
+		marginLeft: 20
 	},
-	textInput: {
-		color: 'black',
-		height: 43,
-		fontSize: 15,
-		width: "100%",
-		borderColor: '#003399',
-		borderRadius: 4,
-		borderWidth: 1,
-		marginBottom: 3,
-		backgroundColor: 'white',
+	inputContainer: {
+		borderBottomColor: '#003399'
 	},
-	headerText: {
-		fontSize: 15,
-		paddingTop: 5,
-		color: '#003399',
-		fontWeight: 'bold'
+	label: {
+		color:"#003399"
 	},
 	buttonContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		paddingTop: 3,
-	},
-	buttonStyle: {
-		backgroundColor: '#003399',
-		borderRadius: 4
-	},
-	formInputContainer: {
-		marginLeft: 2,
-		marginRight: 2,
-		borderBottomColor: 'transparent'
+		marginTop: 8,
 	},
 	picker: {
 		backgroundColor: 'white',
 		...estilo,
-		marginLeft: 1,
-		marginRight: 1,
+		marginLeft: 20,
+		marginRight: 20,
 		borderRadius: 4,
 		borderWidth: 1,
 		borderColor: '#003399',

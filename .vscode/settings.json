@@ -1,5 +1,8 @@
 {
     "python.linting.enabled": true,
-    "python.pythonPath": "/home/davi/.virtualenvs/api-1jIBHIsI/bin/python"
+    "python.pythonPath": "/home/davi/.virtualenvs/api-1jIBHIsI/bin/python",
     //"files.autoSave": "onFocusChange"
+    "python.linting.pylintArgs": [
+        "--load-plugins=pylint_django"
+    ],
 }
