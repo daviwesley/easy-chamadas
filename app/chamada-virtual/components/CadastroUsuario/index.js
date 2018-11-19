@@ -35,7 +35,9 @@ export class CadastroUsuario extends Component {
 	signUp() {
 		if (this.state.password1 === this.state.password2) {
 			criarUsuario(this.state.username, this.state.first_name, this.state.last_name, this.state.password1)
-				.then(() => Alert.alert('Sucesso', 'Usuário cadastrado'))
+				.then(() => {
+					Alert.alert('Sucesso', 'Usuário cadastrado')
+				})
 				.catch(erro => this.setState({ erro }))
 		} else {
 			Alert.alert('Erro', 'As senhas não se combinam, tente novamente!')
