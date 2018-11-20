@@ -107,7 +107,8 @@ class TurmaCoreSerializer(serializers.ModelSerializer):
         class_name = validated_data['name']
         current_user = User.objects.get(username=self.context['request'].user)
         try:
-            student = Student.objects.get(name=student_name, owner=current_user)
+            student = Student.objects.get(
+                name=student_name, owner=current_user)
         except Student.DoesNotExist:
             raise NotFound(
                 '{} não encontrado, crie um registro antes!'.format(student_name))
@@ -119,7 +120,7 @@ class TurmaCoreSerializer(serializers.ModelSerializer):
                 '{} não encontrado, crie um registro antes!'.format(teacher_name))
 
         try:
-            turma = Turma.objects.get(name=class_name,owner=current_user)
+            turma = Turma.objects.get(name=class_name, owner=current_user)
             student.turma_set.add(turma)
         except Turma.DoesNotExist:
             print('#bug', self.context['request'].user)
@@ -146,7 +147,7 @@ class FaultListSerializer(serializers.ModelSerializer):
         name = validated_data.pop('student')
         sub_name = validated_data.pop('turma')
         current_user = User.objects.get(username=self.context['request'].user)
-        print('CURENT USER IS....',current_user)
+        print('CURENT USER IS....', current_user)
         try:
             student = Student.objects.get(name=name, owner=current_user)
         except Student.DoesNotExist:
@@ -198,6 +199,14 @@ class UserSerializer(serializers.ModelSerializer):
 class UserCreatorSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(required=True)
     last_name = serializers.CharField(required=True)
+
     class Meta:
         model = User
         fields = ('username', 'first_name', 'last_name', 'password')
+
+    def create(self, validated_data):
+        user = User(**validated_data)
+        # Hash the user's password.
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
