@@ -92,6 +92,7 @@ export class LoginScreen extends React.Component {
 					onSubmitEditing={() => { this.fazerLogin() }} />
 				<Button title="Entrar" onPress={() => this.fazerLogin()}
 					containerViewStyle={styles.buttonContainer}
+          buttonStyle={{ borderRadius: 3 }}
 					backgroundColor='#003399' borderRadius={3} />
 				<Button
 				  title='Cadastre-se'
