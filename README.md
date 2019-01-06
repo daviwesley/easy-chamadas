@@ -1,6 +1,8 @@
 # easy-chamadas
 [![Build Status](https://travis-ci.org/daviwesley/easy-chamadas.svg?branch=master)](https://travis-ci.org/daviwesley/easy-chamadas)
 </br>
+<img src='assets/imgs/login.png' height=400/> <img src='assets/imgs/signup.png' height=400/><img src='assets/imgs/mainscreen.png' height=400/> <img src='assets/imgs/class_list.png' height=400/>
+<br>
 Aplicativo para realizar chamadas de alunos
 
 **Passos para a instalação do servidor**
