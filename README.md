@@ -5,6 +5,15 @@
 <br>
 Aplicativo para realizar chamadas de alunos
 
+**Sobre as tecnologias usadas**
+
+- Python 3.6(backend)
+- Django(framework web em python)
+- Django REST Framework( framework api em python)
+- JavaScript
+- React Native(biblioteca JavaScript para desenvolvimento de aplicativos multiplataforma)
+- Shell Script(usado para automatizar algumas tarefas)
+
 **Passos para a instalação do servidor**
 
 * Instale o python3.7
